@@ -151,6 +151,7 @@ public class PacMan {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
                 System.out.println();
                 System.out.println();
                 System.out.println("Voce Morreu!");
