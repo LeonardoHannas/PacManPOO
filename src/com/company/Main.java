@@ -61,7 +61,9 @@ public class Main {
             if (pm.getNumPacDotsComidos() == 5) { // setar Fruta Bonus.
                 FrutaBonus fb = new FrutaBonus(t);
                 fb.insereFrutaBonusTabuleiro(t, pm);
-
+                for (int j = 0; j < t.getArestas().length; j++) {
+                    System.out.println("Vertice: " + t.getArestas()[j][0].getNumero() + " | FrutaBonus: " + t.getArestas()[j][0].hasFrutaBonus());
+                }
 
             }
 

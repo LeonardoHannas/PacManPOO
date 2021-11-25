@@ -528,7 +528,9 @@ public class Tabuleiro {
         for (int i = 0; i < pm.getVerticesPercorridos().size(); i++) {
             //arestas[pm.getVerticesPercorridos().get(i)][0].setChar(' ');
             arestas[pm.getVerticesPercorridos().get(i)][0].setComido(); // vertices por onde o pac man passou recebem comido = true
+
         }
+
 
 
     }
@@ -591,7 +593,7 @@ public class Tabuleiro {
 
         } while (numVertice == - 1);
         System.out.println("Vetor Vertices Percorridos:  " + pm.getVerticesPercorridos());
-        System.out.println("Numero do vertice onde estara a Fruta Bonus: " + numVertice);
+        System.out.println("Numero do vertice Procura Vertice Vazio: " + numVertice);
         return numVertice;
 
     }
