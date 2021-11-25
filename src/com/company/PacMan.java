@@ -210,11 +210,9 @@ public class PacMan {
                 } else {
                     pilulaDePoder = false;
                 }
-
             }
         }
     }
-
 }
 
 

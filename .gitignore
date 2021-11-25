@@ -1,0 +1,9 @@
+# Project exclude paths
+/out/
+*.html
+*.xml
+*.c
+*.h
+*.json
+src/com/company/.DS_Store
+*.zip
