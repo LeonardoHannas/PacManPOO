@@ -540,7 +540,12 @@ public class Tabuleiro {
 
         int pont = t.getPontuacao();
 
-        if (pm.getAtual().hasFrutaBonus()) {
+        //System.out.println("AAAAAAAAAAAA");
+
+
+        if (arestas[pm.getPosicaoAtual()][0].hasFrutaBonus()) {
+
+
             if (t.getNivel() == 1) pont += 100;
             else if (t.getNivel() == 2) pont += 300;
             else if (t.getNivel() == 3) pont += 500;
@@ -592,8 +597,8 @@ public class Tabuleiro {
                 numVertice = arestas[pm.getVerticesPercorridos().get(posicao)][0].getNumero();
 
         } while (numVertice == - 1);
-        System.out.println("Vetor Vertices Percorridos:  " + pm.getVerticesPercorridos());
-        System.out.println("Numero do vertice Procura Vertice Vazio: " + numVertice);
+        //System.out.println("Vetor Vertices Percorridos:  " + pm.getVerticesPercorridos());
+        //System.out.println("Numero do vertice Procura Vertice Vazio: " + numVertice);
         return numVertice;
 
     }

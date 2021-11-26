@@ -42,9 +42,9 @@ public class FrutaBonus {
     public void insereFrutaBonusTabuleiro(Tabuleiro t, PacMan pm) {
 
         nroVertice = t.procuraVerticeVazio(pm);
-        System.out.println("Nro Vertice Insere Fruta Bonus Tabuleiro: " + nroVertice);
+        //System.out.println("Nro Vertice Insere Fruta Bonus Tabuleiro: " + nroVertice);
 
-        t.getArestas()[nroVertice+1][0].setFrutaBonus(); // frutaBonus = true
+        t.getArestas()[nroVertice][0].setFrutaBonus(); // frutaBonus = true
         //t.getArestas()[nroVertice][0].resetFrutaBonusComida(); // frutaBonusComida = false
         //t.getArestas()[nroVertice][0].setChar(simbolo);
 

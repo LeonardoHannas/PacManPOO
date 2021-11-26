@@ -140,8 +140,8 @@ public class PacMan {
             if (pilulaDePoder == false) { // Pac Man comido
 
                 numVidas--;
-                pm.setVerticeAtual(t, 45);
-                f1.setNroVerticeAtual(131);
+                pm.setVerticeAtual(t, 0);
+                f1.setNroVerticeAtual(262);
                 f2.setNroVerticeAtual(285);
                 f3.setNroVerticeAtual(286);
                 f4.setNroVerticeAtual(287);

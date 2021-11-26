@@ -15,12 +15,12 @@ public class Main {
 
         //t.imprimeTabuleiro(); // imprime tabuleiro sem personagens
 
-        PacMan pm = new PacMan(t, 45); // cria PacMan no vertice 4
+        PacMan pm = new PacMan(t, 0); // cria PacMan no vertice 4
 
         //t.contabilizaPontuacao(t, pm);
 //        System.out.println( "Pontuacao antes: " + t.getPontuacao());
 
-        Blinky blinky = new Blinky("Blinky", "Vermelha", t, 131); // cria Blinky no vertice 245
+        Blinky blinky = new Blinky("Blinky", "Vermelha", t, 262); // cria Blinky no vertice 245
         //blinky.calculaMenorCaminho(t, pm);
 
         Pinky pinky = new Pinky("Pinky", "Rosa", t, 285); // Cria Pinky no vertice 86
@@ -34,7 +34,7 @@ public class Main {
 
         /* --------------------------------------------------------------------------------------------------------------- */
 
-        int i = 45;
+        int i = 0;
         boolean flag1 = true;
         boolean flag2 = true;
 
@@ -58,12 +58,13 @@ public class Main {
             t.imprimeTabuleiro(t, pm, blinky, pinky, inky, clyde);
             t.atualizaTabuleiro(pm);
 
-            if (pm.getNumPacDotsComidos() == 5) { // setar Fruta Bonus.
+            if (pm.getNumPacDotsComidos() == 10 || pm.getNumPacDotsComidos() == 20) { // setar Fruta Bonus.
                 FrutaBonus fb = new FrutaBonus(t);
                 fb.insereFrutaBonusTabuleiro(t, pm);
-                for (int j = 0; j < t.getArestas().length; j++) {
-                    System.out.println("Vertice: " + t.getArestas()[j][0].getNumero() + " | FrutaBonus: " + t.getArestas()[j][0].hasFrutaBonus());
-                }
+
+//                for (int j = 0; j < t.getArestas().length; j++)
+//                    System.out.println("Vertice: " + j + " | FrutaBonus: " + t.getArestas()[j][0].hasFrutaBonus());
+
 
             }
 
@@ -75,11 +76,11 @@ public class Main {
             pm.gerenciaColisao(t, pm, blinky, pinky, inky, clyde);
 
             if (pm.getNumVidas() == 2 && flag1 == true) {
-                i = 45;
+                i = 0;
                 flag1 = false;
             }
             if (pm.getNumVidas() == 1 && flag2 == true) {
-                i = 45;
+                i = 0;
                 flag2 = false;
             }
 
