@@ -1,7 +1,7 @@
 package com.company.elementosDoSistema;
 
-import com.company.enigine.Tabuleiro;
-import com.company.enigine.Vertice;
+import com.company.engine.Tabuleiro;
+import com.company.engine.Vertice;
 
 import java.util.ArrayList;
 

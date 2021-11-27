@@ -1,6 +1,6 @@
 package com.company.elementosDoSistema;
 
-import com.company.enigine.Tabuleiro;
+import com.company.engine.Tabuleiro;
 
 import java.util.LinkedList;
 

@@ -1,4 +1,4 @@
-package com.company.enigine;
+package com.company.engine;
 
 import com.company.elementosDoSistema.PacMan;
 import com.company.elementosDoSistema.*;
