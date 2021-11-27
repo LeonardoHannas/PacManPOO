@@ -1,4 +1,4 @@
-package com.company;
+package com.company.enigine;
 
 public class Vertice {
 
@@ -12,7 +12,7 @@ public class Vertice {
 
 
     
-    Vertice(int numero, char c) {
+    public Vertice(int numero, char c) {
         this.numero = numero;
         this.c = c;
         comido = false;

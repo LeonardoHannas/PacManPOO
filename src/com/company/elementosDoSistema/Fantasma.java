@@ -1,6 +1,6 @@
-package com.company;
+package com.company.elementosDoSistema;
 
-import javafx.scene.control.Tab;
+import com.company.enigine.Tabuleiro;
 
 import java.util.LinkedList;
 
@@ -10,11 +10,11 @@ public abstract class Fantasma {
     protected String cor;
 
     protected int nroVerticeAtual;
-    //protected int nroProxVertice;
+
 
     protected boolean isMorto;
 
-    Fantasma(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
+    public Fantasma(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
         this.nome = nome;
         this.cor = cor;
         this.nroVerticeAtual = nroVerticeAtual;

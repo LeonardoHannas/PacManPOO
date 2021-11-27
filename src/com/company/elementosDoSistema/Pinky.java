@@ -1,11 +1,13 @@
-package com.company;
+package com.company.elementosDoSistema;
+
+import com.company.enigine.Tabuleiro;
 
 import java.util.LinkedList;
 
 public class Pinky extends Fantasma {
     private LinkedList<Integer> menorCaminho;
 
-    Pinky(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
+    public Pinky(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
         super(nome, cor, t, nroVerticeAtual);
 
         t.getArestas()[nroVerticeAtual][0].setChar('R');

@@ -1,6 +1,6 @@
-package com.company;
+package com.company.elementosDoSistema;
 
-import java.util.Random;
+import com.company.enigine.Tabuleiro;
 
 public class FrutaBonus {
 
@@ -10,7 +10,7 @@ public class FrutaBonus {
     //private boolean comida;
     private int nroVertice;
 
-    FrutaBonus(Tabuleiro t) {
+    public FrutaBonus(Tabuleiro t) {
         if (t.getNivel() == 1) {
             nome = "Cereja";
             valor = 100;

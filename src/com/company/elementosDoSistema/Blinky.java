@@ -1,6 +1,7 @@
-package com.company;
+package com.company.elementosDoSistema;
 
-import java.util.ArrayList;
+import com.company.enigine.Tabuleiro;
+
 import java.util.LinkedList;
 
 public class Blinky extends Fantasma {
@@ -11,7 +12,7 @@ public class Blinky extends Fantasma {
     private int nivelVelocidade;
 
 
-    Blinky(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
+    public Blinky(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
         super(nome, cor, t, nroVerticeAtual);
 
         //Vertice atual = new Vertice(nroVerticeAtual, 'B');

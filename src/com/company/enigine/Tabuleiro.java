@@ -1,7 +1,8 @@
-package com.company;
+package com.company.enigine;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import com.company.elementosDoSistema.PacMan;
+import com.company.elementosDoSistema.*;
+
 import java.util.Random;
 
 public class Tabuleiro {
@@ -20,7 +21,7 @@ public class Tabuleiro {
 
 
     public Tabuleiro(int nroTotalVertices, int grauMax) {
-        nivel = 1;
+        nivel = 3;
         pontuacao = 0;
         ehDigrafo = false;
         this.nroTotalVertices = nroTotalVertices;

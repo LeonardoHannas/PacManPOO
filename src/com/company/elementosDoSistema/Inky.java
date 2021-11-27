@@ -1,10 +1,12 @@
-package com.company;
+package com.company.elementosDoSistema;
+
+import com.company.enigine.Tabuleiro;
 
 import java.util.LinkedList;
 
-public class Clyde extends Fantasma {
+public class Inky extends Fantasma {
 
-    Clyde(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
+    public Inky(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
         super(nome, cor, t, nroVerticeAtual);
     }
 
