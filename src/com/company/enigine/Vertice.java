@@ -32,13 +32,8 @@ public class Vertice {
     public boolean isFrutaBonusComida() {
         return frutaBonusComida;
     }
-
     public void setFrutaBonusComida() {
         frutaBonusComida = true;
-    }
-
-    public void resetFrutaBonusComida() {
-        frutaBonusComida = false;
     }
 
     public int getNumero() { return this.numero; }
@@ -55,9 +50,6 @@ public class Vertice {
         this.c = c;
     }
 
-    public void printVertice() {
-        System.out.print(getChar());
-    }
 
     public void setComido() {
         comido = true;

@@ -31,11 +31,7 @@ public class PacMan {
             numPacDotsComidos = 0;
         }
 
-        //atual = t.getArestas()[nroVerticeAtual][0];
         atual = new Vertice(nroVerticeAtual, t.getArestas()[nroVerticeAtual][0].getChar());
-//        atual.setNumero(nroVerticeAtual);
-//        atual.setChar(t.getArestas()[nroVerticeAtual][0].getChar());
-
 
         verticesPercorridos = new ArrayList<>();
         verticesPercorridos.add(nroVerticeAtual);
@@ -48,14 +44,7 @@ public class PacMan {
         tempoFinal = 0;
 
     }
-//
-//    public void setNroProxVertice() {
-//        if (atual.getNumero() < 288) nroProxVertice = atual.getNumero() + 1;
-//    }
-//
-//    public int getNroProxVertice() {
-//        return nroProxVertice;
-//    }
+
 
     public void setNumFatasmasComidos(int numFatasmasComidos) {
         this.numFatasmasComidos = numFatasmasComidos;
@@ -79,10 +68,6 @@ public class PacMan {
         return pilulaDePoder;
     }
 
-    public void resetPilulaDePoder() {
-        pilulaDePoder = false;
-    }
-
     public Vertice getAtual() {
         return atual;
     }
@@ -92,7 +77,6 @@ public class PacMan {
     }
 
     public void setVerticeAtual(Tabuleiro t, int numVertice) {
-        //atual = t.getArestas()[numVertice][0];
         atual.setNumero(numVertice);
         atual.setChar(t.getArestas()[numVertice][0].getChar());
 
@@ -110,10 +94,8 @@ public class PacMan {
 
         if (!getVerticesPercorridos().contains(getPosicaoAtual())) getVerticesPercorridos().add(getPosicaoAtual());
 
-
-        //if (getAtual().hasFrutaBonus())
-
         if (getAtual().getChar() == '*') {
+
             pilulaDePoder = true;
             t.setCorFantasmas(f1, f2, f3, f4);
 
@@ -138,7 +120,7 @@ public class PacMan {
         if (x == 0) return; // nao houve colisao
         else { // houve colisao
 
-            if (pilulaDePoder == false) { // Pac Man comido
+            if (!pilulaDePoder) { // Pac Man comido
 
                 numVidas--;
                 pm.setVerticeAtual(t, 0);

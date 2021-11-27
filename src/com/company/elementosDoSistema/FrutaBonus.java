@@ -7,7 +7,6 @@ public class FrutaBonus {
     private char simbolo;
     private String nome;
     private int valor;
-    //private boolean comida;
     private int nroVertice;
 
     public FrutaBonus(Tabuleiro t) {
@@ -23,7 +22,6 @@ public class FrutaBonus {
         }
 
         simbolo = '!';
-        //comida = false;
         nroVertice = - 1;
     }
 
@@ -35,18 +33,11 @@ public class FrutaBonus {
         return valor;
     }
 
-    //public boolean isComida() { return comida; }
-
-    //public void setComida() { comida = true; }
-
     public void insereFrutaBonusTabuleiro(Tabuleiro t, PacMan pm) {
 
         nroVertice = t.procuraVerticeVazio(pm);
-        //System.out.println("Nro Vertice Insere Fruta Bonus Tabuleiro: " + nroVertice);
 
         t.getArestas()[nroVertice][0].setFrutaBonus(); // frutaBonus = true
-        //t.getArestas()[nroVertice][0].resetFrutaBonusComida(); // frutaBonusComida = false
-        //t.getArestas()[nroVertice][0].setChar(simbolo);
 
     }
 }

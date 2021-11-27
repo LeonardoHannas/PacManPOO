@@ -12,7 +12,6 @@ public class Inky extends Fantasma {
 
     @Override
     public void calculaMenorCaminho(Tabuleiro t, PacMan pc) {
-        return;
     }
 
     @Override
@@ -20,13 +19,4 @@ public class Inky extends Fantasma {
         return null;
     }
 
-//    @Override
-//    public void setNroProxVertice(Tabuleiro t, PacMan pm) {
-//        return;
-//    }
-//
-//    @Override
-//    public int getNroProxVertice() {
-//        return -1;
-//    }
 }

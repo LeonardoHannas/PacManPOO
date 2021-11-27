@@ -33,19 +33,10 @@ public class Pinky extends Fantasma {
             ant[i] = ant[ant[i]];
         }
         menorCaminho.removeFirst();
-        //System.out.print(menorCaminho);
     }
 
     public void setVerticeAtual() {
         nroVerticeAtual = menorCaminho.getFirst();
     }
 
-//    public void setNroProxVertice(Tabuleiro t, PacMan pm) {
-//        calculaMenorCaminho(t, pm);
-//        nroProxVertice = menorCaminho.getFirst();
-//    }
-//
-//    public int getNroProxVertice() {
-//        return nroProxVertice;
-//    }
 }

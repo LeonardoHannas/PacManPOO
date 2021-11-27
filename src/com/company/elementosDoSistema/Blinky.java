@@ -9,17 +9,10 @@ public class Blinky extends Fantasma {
     private LinkedList<Integer> menorCaminho;
 
 
-    private int nivelVelocidade;
-
-
     public Blinky(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
         super(nome, cor, t, nroVerticeAtual);
 
-        //Vertice atual = new Vertice(nroVerticeAtual, 'B');
-        //t.getArestas()[nroVerticeAtual][0].setChar('V');
-
         menorCaminho = new LinkedList<>();
-        nivelVelocidade = 1;
 
     }
 
@@ -43,37 +36,26 @@ public class Blinky extends Fantasma {
         }
         menorCaminho.removeFirst();
 
-        //System.out.println("Caminho NIVEL 1: " + menorCaminho);
-        //System.out.println("Tamanho Caminho 1: " + menorCaminho.size());
-
-
-        //t.setNivel(2);
-
-
         LinkedList<Integer> aux = new LinkedList<>();
         int j;
 
-        if (t.getNivel() == 2) {
+        if (pm.getNumPacDotsComidos() >= 96 && pm.getNumPacDotsComidos() < 192) {
 
             for (j = 0; j < menorCaminho.size(); j++) if (j % 2 != 0) aux.add(menorCaminho.get(j));
 
             if (!aux.contains(pm.getPosicaoAtual())) aux.add(pm.getPosicaoAtual());
+
             menorCaminho = aux;
-            //System.out.println("Caminho NIVEL 2: " + menorCaminho);
-            //System.out.println("Tamanho Caminho 2: " + menorCaminho.size());
 
-
-        } else if (t.getNivel() == 3) {
+        } else if (pm.getNumPacDotsComidos() >= 192) {
 
             for (j = 0; j < menorCaminho.size(); j++) if ((j - 2) % 3 == 0) aux.add(menorCaminho.get(j));
 
             if (!aux.contains(pm.getPosicaoAtual())) aux.add(pm.getPosicaoAtual());
+
             menorCaminho = aux;
-//            System.out.println("Caminho NIVEL 3: " + menorCaminho);
-//            System.out.println("Tamanho Caminho 3: " + menorCaminho.size());
 
         }
-
 
     }
 

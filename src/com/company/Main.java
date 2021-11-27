@@ -13,12 +13,7 @@ public class Main {
 
         t.montaTabuleiro(t);
 
-        //t.imprimeTabuleiro(); // imprime tabuleiro sem personagens
-
         PacMan pm = new PacMan(t, 0); // cria PacMan no vertice 4
-
-        //t.contabilizaPontuacao(t, pm);
-//        System.out.println( "Pontuacao antes: " + t.getPontuacao());
 
         Blinky blinky = new Blinky("Blinky", "Vermelha", t, 262); // cria Blinky no vertice 245
         //blinky.calculaMenorCaminho(t, pm);
@@ -62,10 +57,6 @@ public class Main {
                 FrutaBonus fb = new FrutaBonus(t);
                 fb.insereFrutaBonusTabuleiro(t, pm);
 
-//                for (int j = 0; j < t.getArestas().length; j++)
-//                    System.out.println("Vertice: " + j + " | FrutaBonus: " + t.getArestas()[j][0].hasFrutaBonus());
-
-
             }
 
             System.out.println("Pontuacao: " + t.getPontuacao());
@@ -75,11 +66,11 @@ public class Main {
 
             pm.gerenciaColisao(t, pm, blinky, pinky, inky, clyde);
 
-            if (pm.getNumVidas() == 2 && flag1 == true) {
+            if (pm.getNumVidas() == 2 && flag1) {
                 i = 0;
                 flag1 = false;
             }
-            if (pm.getNumVidas() == 1 && flag2 == true) {
+            if (pm.getNumVidas() == 1 && flag2) {
                 i = 0;
                 flag2 = false;
             }
