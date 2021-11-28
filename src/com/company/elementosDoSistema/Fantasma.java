@@ -49,7 +49,7 @@ public abstract class Fantasma {
     /**
      * Metodo abstrato para acessar a LinkedList que contem a sequencia dos numeros dos vertices a serem percorridos
      * durante o caminho do fantasma ate o Pac Man.
-     * @return LinkedList<Integer>
+     * @return LinkedList
      */
     public abstract LinkedList<Integer> getMenorCaminho();
 
@@ -63,7 +63,7 @@ public abstract class Fantasma {
 
     /**
      * Metodo para atualizar o numero de vertice atual do fantasma.
-     * @param nroVerticeAtual
+     * @param nroVerticeAtual Numero do vertice atual.
      */
     public void setNroVerticeAtual(int nroVerticeAtual) {
         this.nroVerticeAtual = nroVerticeAtual;

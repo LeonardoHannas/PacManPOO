@@ -43,7 +43,7 @@ public class FrutaBonus {
 
     /**
      * Retorna o valor (em pontos) da Fruta Bonus analisada.
-     * @return
+     * @return int
      */
     public int getValor() {
         return valor;

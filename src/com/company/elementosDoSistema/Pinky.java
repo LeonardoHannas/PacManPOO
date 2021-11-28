@@ -27,7 +27,7 @@ public class Pinky extends Fantasma {
 
     /**
      * Metodo que retorna o menor caminho calculado entre o fantasma e o Pac Man.
-     * @return LinkedList<Integer>
+     * @return LinkedList
      */
     public LinkedList<Integer> getMenorCaminho() {
         return menorCaminho;

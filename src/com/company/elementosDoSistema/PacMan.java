@@ -150,7 +150,7 @@ public class PacMan {
 
     /**
      * Acessa e retorna o ArrayList com os numeros dos vertices percorridos pelo Pac Man.
-     * @return ArrayList<Integer>
+     * @return ArrayList
      */
     public ArrayList<Integer> getVerticesPercorridos() {
         return verticesPercorridos;

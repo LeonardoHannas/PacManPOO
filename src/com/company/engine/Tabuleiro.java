@@ -116,8 +116,8 @@ public class Tabuleiro {
     /**
      * Calcula o menor caminho entre 2 vertices do grafo. A sequencia de vertices a serem percorridos eh armazenada
      * num vetor de numeros inteiros Tais numeros representam o numero do cada vertice do tabuleiro.
-     * @param nroVerticeOrigem
-     * @param nroVerticeDestino
+     * @param nroVerticeOrigem Numero do vertice de origem.
+     * @param nroVerticeDestino Numero do vertice de origem.
      * @return int[]
      */
     public int[] menorCaminho(int nroVerticeOrigem, int nroVerticeDestino) {
@@ -673,7 +673,7 @@ public class Tabuleiro {
      * Para isso, este metodo acessa o vetor de vertices percorridos do Pac Man e sorteia aleatoriamente um deles para
      * receber a Fruta Bonus.
      * @param pm Pac Man
-     * @return
+     * @return int
      */
     public int procuraVerticeVazio(PacMan pm) {
 
