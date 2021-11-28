@@ -4,11 +4,21 @@ import com.company.engine.Tabuleiro;
 
 import java.util.LinkedList;
 
+/**
+ * Classe herdeira da classe 'Fantasma'. Representa o fantasma vermelho, 'Blinky'.
+ * */
 public class Blinky extends Fantasma {
 
-    private LinkedList<Integer> menorCaminho;
+    private LinkedList<Integer> menorCaminho; // Lista encadeada que armazena a sequencia de numeros de vertices do
+                                              // menor caminho entre o fantasma e o Pac Man.
 
-
+    /**
+     * Construtor padrao fantasma Blinky.
+     * @param nome String com o nome do fantasma.
+     * @param cor String com a cor do fantasma.
+     * @param t Tabuleiro de jogo.
+     * @param nroVerticeAtual Numero do atual vertice ocupado pelo fantasma.
+     */
     public Blinky(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
         super(nome, cor, t, nroVerticeAtual);
 
@@ -16,11 +26,24 @@ public class Blinky extends Fantasma {
 
     }
 
-
+    /**
+     * Metodo que retorna o menor caminho calculado entre o fantasma e o Pac Man.
+     * @return LinkedList<Integer>
+     */
     public LinkedList<Integer> getMenorCaminho() {
         return menorCaminho;
     }
 
+
+    /**
+     * Calcula o menor camingo entre o fantasma e o Pac Man, seguindo-se o Algoritmo de Dijkstra.
+     * Alem disso, o menor caminho pode ser alterado, dependendo da quantidade de Pac Dots ja comidos pelo Pac Man. Caso
+     * o numero de Pac Dots comidos for superior a 96, o fantasma Blinky tem sua velocidade aumentada, pulando de 2 em 2 vertices.
+     * Caso o numero de Pac Dots comidos for sueprior a 192, a velocidade do Blinky aumenta ainda mais, pulando, desta
+     * vez, de 3 em 3 vertices.
+     * @param t Tabuleiro de jogo.
+     * @param pm Pac Man.
+     */
     @Override
     public void calculaMenorCaminho(Tabuleiro t, PacMan pm) {
         menorCaminho.clear();
@@ -59,6 +82,9 @@ public class Blinky extends Fantasma {
 
     }
 
+    /**
+     * Atualiza a posicao do fantasma no tabuleiro, fazendo ele andar para o seu proximo vertice calculado.
+     */
     public void setVerticeAtual() {
         nroVerticeAtual = menorCaminho.getFirst();
     }

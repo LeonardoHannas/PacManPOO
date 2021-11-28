@@ -5,20 +5,31 @@ import com.company.elementosDoSistema.*;
 
 import java.util.Random;
 
+/**
+ * Classe que representa o tabuleiro de jogo. Foi utilizado o conceito de grafo para a construcao desta classe.
+ *
+ */
 public class Tabuleiro {
 
-    private boolean ehDigrafo;
-    private int nroTotalVertices;
-    private int grauMax = 4;
-    private int[] grau; // vetor que indica quantas arestas cada vertice ja possui
-    private Vertice[][] arestas;
+    private boolean ehDigrafo; // Booleano que indica que o grafo eh bidirecional.
+    private int nroTotalVertices; // Numero total de vertices do tabuleiro.
+    private int grauMax; // Numero maximo de ligacoes com outros vertices, partindo-se de um determinado vertice.
+    private int[] grau; // vetor que indica quantas arestas cada vertice ja possui.
+    private Vertice[][] arestas; // Matriz de vertices do grafo. A ligacao entre 2 vertices determina uma aresta.
 
-    private int pontuacao;
-    private int nivel;
+    private int pontuacao; // Variavel que armazena a pontuacao atual do PacMan.
+    private int nivel; // Variavel para armazenar o atual nivel de jogo.
 
+    /**
+     * Construtor padrao do tabuleiro de jogo. Nele, sao inicializados os atributos da classe, como a inicializacao do
+     * grafo de jogo, que contem cada um dos 288 vertices.
+     * @param nroTotalVertices numero total de vertices do tabuleiro.
+     * @param grauMax Numero maximo de ligacoes com outros vertices, partindo-se de um determinado vertice.
+     */
     public Tabuleiro(int nroTotalVertices, int grauMax) {
 
         nivel = 1;
+        grauMax = 4;
         pontuacao = 0;
         ehDigrafo = false;
         this.nroTotalVertices = nroTotalVertices;
@@ -37,43 +48,78 @@ public class Tabuleiro {
 
     }
 
+    /**
+     * Retorna o atual nivel do jogo.
+     * @return int
+     */
     public int getNivel() {
         return nivel;
     }
 
+    /**
+     * Atualiza o atual nivel de jogo.
+     * @param nivel: numero inteiro contendo o atual nivel a ser setado.
+     */
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
 
+    /**
+     * Retorna a atual pontuacao do Pac Man.
+     * @return int
+     */
     public int getPontuacao() {
         return pontuacao;
     }
 
+    /**
+     * Metodo para atualizar a pontuacao do Pac Man.
+     * @param x: nova potuacao a ser setada.
+     */
     public void setPontuacao(int x) {
         pontuacao = x;
     }
 
+    /**
+     * Retorna a matriz de nome "arestas", que contem os vertices do grafo do tabuleiro.
+     * @return Vertice[][]
+     */
     public Vertice[][] getArestas() {
         return arestas;
     }
 
+    /**
+     * Verifica se o grafo eh uni ou bidirecional. Esse metodo eh utilizado na insercao de uma nova aresta no grafo.
+     * @return boolean
+     */
     public boolean getEhDigrafo() {
         return this.ehDigrafo;
     }
 
+    /**
+     * Executa a insercao de uma nova aresta no grafo.
+     * @param nroVerticeOrigem numero do vertice de origem.
+     * @param nroVerticeDestino numero do vertice de destino.
+     * @param ehDigrafo variavel booleana para controlar a insercao recursiva de uma aresta.
+     */
     public void insereAresta(int nroVerticeOrigem, int nroVerticeDestino, boolean ehDigrafo)  {
 
         if (nroVerticeOrigem < 0 || nroVerticeOrigem >= nroTotalVertices) return;
-            //throw new IllegalArgumentException("Erro: numero do vertice de origem invalido.");
         if (nroVerticeDestino < 0 || nroVerticeDestino >= nroTotalVertices) return;
-            //throw new IllegalArgumentException("Erro:numero do vertice de destino invalido");
 
         arestas[nroVerticeOrigem][grau[nroVerticeOrigem]].setNumero(nroVerticeDestino);
         grau[nroVerticeOrigem]++;
-        if (!ehDigrafo)insereAresta(nroVerticeDestino, nroVerticeOrigem, true);
+        if (!ehDigrafo) insereAresta(nroVerticeDestino, nroVerticeOrigem, true);
 
     }
 
+    /**
+     * Calcula o menor caminho entre 2 vertices do grafo. A sequencia de vertices a serem percorridos eh armazenada
+     * num vetor de numeros inteiros Tais numeros representam o numero do cada vertice do tabuleiro.
+     * @param nroVerticeOrigem
+     * @param nroVerticeDestino
+     * @return int[]
+     */
     public int[] menorCaminho(int nroVerticeOrigem, int nroVerticeDestino) {
         int[] visitado = new int[nroTotalVertices];
         int[] ant = new int[nroTotalVertices];
@@ -114,6 +160,13 @@ public class Tabuleiro {
 
     }
 
+    /**
+     * Funcao auxiliar utilizada no calculo do menor caminho entre dois vertices.
+     * @param dist vetor de distancias.
+     * @param visitado vetor que controla os vertices visitados para se fazer o calculo.
+     * @param nroTotalVertices numero total de vertices do grafo.
+     * @return int
+     */
     public int procuraMenorDistancia(float[] dist, int[] visitado, int nroTotalVertices) {
         int i, menor = - 1, primeiro = 1;
         for (i = 0; i < nroTotalVertices; i++) {
@@ -129,7 +182,11 @@ public class Tabuleiro {
         return menor;
     }
 
-
+    /**
+     * Faz todas as ligacoes entre os vertices para se montar o tabuleiro. Cada ligacao entre vertices representa uma
+     * aresta, a qual eh sempre bidirecional.
+     * @param t Tabuleiro de jogo.
+     */
     public void montaTabuleiro(Tabuleiro t)  {
         int i;
 
@@ -340,7 +397,18 @@ public class Tabuleiro {
         t.insereAresta(261, 287, t.getEhDigrafo());
     }
 
-
+    /**
+     * Imprime o tabuleiro de jogo. Para isso, percorre toda a matriz de vertices de nome "arestas". Eh feita uma
+     * verificacao do status de cada vertice para saber qual caractere sera impresso na sua posicao. A seguir, eh feita
+     * a verificacao de quais persongens estao vivos. Todos que estiverem vivos possuem seus respectivos caracteres
+     * printados em suas posicoes.
+     * @param t Tabuleiro de jogo.
+     * @param pm Pac Man.
+     * @param f1 Fantasma Blinky.
+     * @param f2 Fantasma Pinky.
+     * @param f3 Fantasma Inky.
+     * @param f4 Fantasma Clyde.
+     */
     public void imprimeTabuleiro(Tabuleiro t, PacMan pm, Blinky f1, Pinky f2, Inky f3, Clyde f4) {
 
         for (int i = 0; i < t.arestas.length; i++) {
@@ -350,10 +418,10 @@ public class Tabuleiro {
                     case 62:
                     case 169:
                     case 182:
-                        arestas[i][0].setChar('*');
+                        arestas[i][0].setChar('*'); // Pilulas de Poder
                         break;
                     default:
-                        arestas[i][0].setChar('.');
+                        arestas[i][0].setChar('.'); // Pac Dots
                         break;
 
                 }
@@ -389,14 +457,18 @@ public class Tabuleiro {
                 posClyde = f4.getNroVerticeAtual();
                 t.getArestas()[posClyde][0].setChar('D');
             }
+            if (!pm.isMorto()) {
+                posPacMan = pm.getPosicaoAtual();
+                t.getArestas()[posPacMan][0].setChar('P');
+            }
 
-            posPacMan = pm.getPosicaoAtual();
-            t.getArestas()[posPacMan][0].setChar('P');
 
         } else {
 
-            posPacMan = pm.getPosicaoAtual();
-            t.getArestas()[posPacMan][0].setChar('P');
+            if (!pm.isMorto()) {
+                posPacMan = pm.getPosicaoAtual();
+                t.getArestas()[posPacMan][0].setChar('P');
+            }
 
             if (!f1.isMorto()) {
                 posBlinky = f1.getNroVerticeAtual();
@@ -418,6 +490,8 @@ public class Tabuleiro {
                 t.getArestas()[posClyde][0].setChar('D');
             }
         }
+
+
         System.out.println("+-------------------------+ +-------------------------+");
         System.out.println("| " + arestas[0][0].getChar() + " " + arestas[1][0].getChar() + " " + arestas[2][0].getChar() + " " + arestas[3][0].getChar() + " " + arestas[4][0].getChar() + " " + arestas[5][0].getChar() + " " + arestas[6][0].getChar() + " " + arestas[7][0].getChar() + " " + arestas[8][0].getChar() + " " + arestas[9][0].getChar() + " " + arestas[10][0].getChar() + " " + arestas[11][0].getChar() + " | " + "| " + arestas[12][0].getChar() + " " + arestas[13][0].getChar() + " " + arestas[14][0].getChar() + " " + arestas[15][0].getChar() + " " + arestas[16][0].getChar() + " " + arestas[17][0].getChar() + " " + arestas[18][0].getChar() + " " + arestas[19][0].getChar() + " " + arestas[20][0].getChar() + " " + arestas[21][0].getChar() + " " + arestas[22][0].getChar() + " " + arestas[23][0].getChar() + " |");
         System.out.println("| " + arestas[24][0].getChar() + " +-----+ " + arestas[25][0].getChar() + " +-------+ " + arestas[26][0].getChar() + " | | " + arestas[27][0].getChar() + " +-------+ " + arestas[28][0].getChar() + " +-----+ " + arestas[29][0].getChar() + " |");
@@ -452,28 +526,110 @@ public class Tabuleiro {
 
     }
 
+    /**
+     * Funcao feita exclusivamente para esta parte 1 do projeto. Seu objetivo eh mostrar no terminal o caminho que o
+     * fantasma deve seguir visando a busca do Pac Man.
+     * @param t Tabuleiro de jogo.
+     * @param pm Pac Man (para saber qual eh a sua posicao atual).
+     * @param blinky Fantasma Blinky (tambem para saber a sua posicao atual para calcular o caminho minimo).
+     */
+    public void imprimeCaminhoTabuleiro(Tabuleiro t, PacMan pm, Blinky blinky) {
+
+        for (int i = 0; i < t.arestas.length; i++) {
+
+            switch (i) {
+                case 47:
+                case 62:
+                case 169:
+                case 182:
+                    arestas[i][0].setChar('*');
+                    break;
+                default:
+                    arestas[i][0].setChar('.');
+                    break;
+            }
+        }
+
+        int posPacMan, posBlinky;
+
+        if (!pm.isMorto()) {
+            posPacMan = pm.getPosicaoAtual();
+            t.getArestas()[posPacMan][0].setChar('P');
+        }
+
+        if (!blinky.isMorto()) {
+            posBlinky = blinky.getNroVerticeAtual();
+            t.getArestas()[posBlinky][0].setChar('F');
+        }
+
+        for (int i = 0; i < blinky.getMenorCaminho().size(); i++) {
+            t.getArestas()[blinky.getMenorCaminho().get(i)][0].setChar('#');
+        }
+
+        System.out.println("+-------------------------+ +-------------------------+");
+        System.out.println("| " + arestas[0][0].getChar() + " " + arestas[1][0].getChar() + " " + arestas[2][0].getChar() + " " + arestas[3][0].getChar() + " " + arestas[4][0].getChar() + " " + arestas[5][0].getChar() + " " + arestas[6][0].getChar() + " " + arestas[7][0].getChar() + " " + arestas[8][0].getChar() + " " + arestas[9][0].getChar() + " " + arestas[10][0].getChar() + " " + arestas[11][0].getChar() + " | " + "| " + arestas[12][0].getChar() + " " + arestas[13][0].getChar() + " " + arestas[14][0].getChar() + " " + arestas[15][0].getChar() + " " + arestas[16][0].getChar() + " " + arestas[17][0].getChar() + " " + arestas[18][0].getChar() + " " + arestas[19][0].getChar() + " " + arestas[20][0].getChar() + " " + arestas[21][0].getChar() + " " + arestas[22][0].getChar() + " " + arestas[23][0].getChar() + " |");
+        System.out.println("| " + arestas[24][0].getChar() + " +-----+ " + arestas[25][0].getChar() + " +-------+ " + arestas[26][0].getChar() + " | | " + arestas[27][0].getChar() + " +-------+ " + arestas[28][0].getChar() + " +-----+ " + arestas[29][0].getChar() + " |");
+        System.out.println("| " + arestas[30][0].getChar() + " |     | " + arestas[31][0].getChar() + " |       | " + arestas[32][0].getChar() + " | | " + arestas[33][0].getChar() + " |       | " + arestas[34][0].getChar() + " |     | " + arestas[35][0].getChar() + " |");
+        System.out.println("| " + arestas[36][0].getChar() + " +-----+ " + arestas[37][0].getChar() + " +-------+ " + arestas[38][0].getChar() + " +-+ " + arestas[39][0].getChar() + " +-------+ " + arestas[40][0].getChar() + " +-----+ " + arestas[41][0].getChar() + " |");
+        System.out.println("| " + arestas[42][0].getChar() + " " + arestas[43][0].getChar() + " " + arestas[44][0].getChar() + " " + arestas[45][0].getChar() + " " + arestas[46][0].getChar() + " " + arestas[47][0].getChar() + " " + arestas[48][0].getChar() + " " + arestas[49][0].getChar() + " " + arestas[50][0].getChar() + " " + arestas[51][0].getChar() + " " + arestas[52][0].getChar() + " " + arestas[53][0].getChar() + " " + arestas[54][0].getChar() + " " + arestas[55][0].getChar() + " " + arestas[56][0].getChar() + " " + arestas[57][0].getChar() + " " + arestas[58][0].getChar() + " " + arestas[59][0].getChar() + " " + arestas[60][0].getChar() + " " + arestas[61][0].getChar() + " " + arestas[62][0].getChar() + " " + arestas[63][0].getChar() + " " + arestas[64][0].getChar() + " " + arestas[65][0].getChar() + " " + arestas[66][0].getChar() + " " + arestas[67][0].getChar() + " |");
+        System.out.println("| " + arestas[68][0].getChar() + " +-----+ " + arestas[69][0].getChar() + " +-+ " + arestas[70][0].getChar() + " +-------------+ " + arestas[71][0].getChar() + " +-+ " + arestas[72][0].getChar() + " +-----+ " + arestas[73][0].getChar() + " |");
+        System.out.println("| " + arestas[74][0].getChar() + " +-----+ " + arestas[75][0].getChar() + " | | " + arestas[76][0].getChar() + " +-----+ +-----+ " + arestas[77][0].getChar() + " | | " + arestas[78][0].getChar() + " +-----+ " + arestas[79][0].getChar() + " |");
+        System.out.println("| " + arestas[80][0].getChar() + " " + arestas[81][0].getChar() + " " + arestas[82][0].getChar() + " " + arestas[83][0].getChar() + " " + arestas[84][0].getChar() + " " + arestas[85][0].getChar() + " | | " + arestas[86][0].getChar() + " " + arestas[87][0].getChar() + " " + arestas[88][0].getChar() + " " + arestas[89][0].getChar() + " | | " + arestas[90][0].getChar() + " " + arestas[91][0].getChar() + " " + arestas[92][0].getChar() + " " + arestas[93][0].getChar() + " | | " + arestas[94][0].getChar() + " " + arestas[95][0].getChar() + " " + arestas[96][0].getChar() + " " + arestas[97][0].getChar() + " " + arestas[98][0].getChar() + " " + arestas[99][0].getChar() + " |");
+        System.out.println("+---------+ " + arestas[100][0].getChar() + " | +-----+ " + arestas[101][0].getChar() + " | | " + arestas[102][0].getChar() + " +-----+ | " + arestas[103][0].getChar() + " +---------+");
+        System.out.println("          | " + arestas[104][0].getChar() + " | +-----+ " + arestas[105][0].getChar() + " +-+ " + arestas[106][0].getChar() + " +-----+ | " + arestas[107][0].getChar() + " |          ");
+        System.out.println("          | " + arestas[108][0].getChar() + " | | " + arestas[109][0].getChar() + " " + arestas[110][0].getChar() + " " + arestas[111][0].getChar() + " " + arestas[112][0].getChar() + " " + arestas[113][0].getChar() + " " + arestas[114][0].getChar() + " " + arestas[115][0].getChar() + " " + arestas[116][0].getChar() + " " + arestas[117][0].getChar() + " " + arestas[118][0].getChar() + " | | " + arestas[119][0].getChar() + " |          ");
+        System.out.println("          | " + arestas[120][0].getChar() + " | | " + arestas[121][0].getChar() + " +-------------+ " + arestas[122][0].getChar() + " | | " + arestas[123][0].getChar() + " |          ");
+        System.out.println("          | " + arestas[124][0].getChar() + " +-+ " + arestas[125][0].getChar() + " |             | " + arestas[126][0].getChar() + " +-+ " + arestas[127][0].getChar() + " |          ");
+        System.out.println("          | " + arestas[128][0].getChar() + " " + arestas[129][0].getChar() + " " + arestas[130][0].getChar() + " " + arestas[131][0].getChar() + " |             | " + arestas[132][0].getChar() + " " + arestas[133][0].getChar() + " " + arestas[134][0].getChar() + " " + arestas[135][0].getChar() + " |          ");
+        System.out.println("          | " + arestas[136][0].getChar() + " +-+ " + arestas[137][0].getChar() + " |             | " + arestas[138][0].getChar() + " +-+ " + arestas[139][0].getChar() + " |          ");
+        System.out.println("          | " + arestas[140][0].getChar() + " | | " + arestas[141][0].getChar() + " +-------------+ " + arestas[142][0].getChar() + " | | " + arestas[143][0].getChar() + " |          ");
+        System.out.println("          | " + arestas[144][0].getChar() + " | | " + arestas[145][0].getChar() + " " + arestas[146][0].getChar() + " " + arestas[147][0].getChar() + " " + arestas[148][0].getChar() + " " + arestas[149][0].getChar() + " " + arestas[150][0].getChar() + " " + arestas[151][0].getChar() + " " + arestas[152][0].getChar() + " " + arestas[153][0].getChar() + " " + arestas[154][0].getChar() + " | | " + arestas[155][0].getChar() + " |          ");
+        System.out.println("          | " + arestas[156][0].getChar() + " | | " + arestas[157][0].getChar() + " +-------------+ " + arestas[158][0].getChar() + " | | " + arestas[159][0].getChar() + " |          ");
+        System.out.println("+---------+ " + arestas[160][0].getChar() + " +-+ " + arestas[161][0].getChar() + " +-----+ +-----+ " + arestas[162][0].getChar() + " +-+ " + arestas[163][0].getChar() + " +---------+");
+        System.out.println("| " + arestas[164][0].getChar() + " " + arestas[165][0].getChar() + " " + arestas[166][0].getChar() + " " + arestas[167][0].getChar() + " " + arestas[168][0].getChar() + " " + arestas[169][0].getChar() + " " + arestas[170][0].getChar() + " " + arestas[171][0].getChar() + " " + arestas[172][0].getChar() + " " + arestas[173][0].getChar() + " " + arestas[174][0].getChar() + " " + arestas[175][0].getChar() + " | | " + arestas[176][0].getChar() + " " + arestas[177][0].getChar() + " " + arestas[178][0].getChar() + " " + arestas[179][0].getChar() + " " + arestas[180][0].getChar() + " " + arestas[181][0].getChar() + " " + arestas[182][0].getChar() + " " + arestas[183][0].getChar() + " " + arestas[184][0].getChar() + " " + arestas[185][0].getChar() + " " + arestas[186][0].getChar() + " " + arestas[187][0].getChar() + " |");
+        System.out.println("| " + arestas[188][0].getChar() + " +-----+ " + arestas[189][0].getChar() + " +-------+ " + arestas[190][0].getChar() + " | | " + arestas[191][0].getChar() + " +-------+ " + arestas[192][0].getChar() + " +-----+ " + arestas[193][0].getChar() + " |");
+        System.out.println("| " + arestas[194][0].getChar() + " +---+ | " + arestas[195][0].getChar() + " +-------+ " + arestas[196][0].getChar() + " +-+ " + arestas[197][0].getChar() + " +-------+ " + arestas[198][0].getChar() + " | +---+ " + arestas[199][0].getChar() + " |");
+        System.out.println("| " + arestas[200][0].getChar() + " " + arestas[201][0].getChar() + " " + arestas[202][0].getChar() + " | | " + arestas[203][0].getChar() + " " + arestas[204][0].getChar() + " " + arestas[205][0].getChar() + " " + arestas[206][0].getChar() + " " + arestas[207][0].getChar() + " " + arestas[208][0].getChar() + " " + arestas[209][0].getChar() + " " + arestas[210][0].getChar() + " " + arestas[211][0].getChar() + " " + arestas[212][0].getChar() + " " + arestas[213][0].getChar() + " " + arestas[214][0].getChar() + " " + arestas[215][0].getChar() + " " + arestas[216][0].getChar() + " " + arestas[217][0].getChar() + " " + arestas[218][0].getChar() + " | | " + arestas[219][0].getChar() + " " + arestas[220][0].getChar() + " " + arestas[221][0].getChar() + " |");
+        System.out.println("+---+ " + arestas[222][0].getChar() + " | | " + arestas[223][0].getChar() + " +-+ " + arestas[224][0].getChar() + " +-------------+ " + arestas[225][0].getChar() + " +-+ " + arestas[226][0].getChar() + " | | " + arestas[227][0].getChar() + " +---+");
+        System.out.println("+---+ " + arestas[228][0].getChar() + " +-+ " + arestas[229][0].getChar() + " | | " + arestas[230][0].getChar() + " +-----+ +-----+ " + arestas[231][0].getChar() + " | | " + arestas[232][0].getChar() + " +-+ " + arestas[233][0].getChar() + " +---+");
+        System.out.println("| " + arestas[234][0].getChar() + " " + arestas[235][0].getChar() + " " + arestas[236][0].getChar() + " " + arestas[237][0].getChar() + " " + arestas[238][0].getChar() + " " + arestas[239][0].getChar() + " | | " + arestas[240][0].getChar() + " " + arestas[241][0].getChar() + " " + arestas[242][0].getChar() + " " + arestas[243][0].getChar() + " | | " + arestas[244][0].getChar() + " " + arestas[245][0].getChar() + " " + arestas[246][0].getChar() + " " + arestas[247][0].getChar() + " | | " + arestas[248][0].getChar() + " " + arestas[249][0].getChar() + " " + arestas[250][0].getChar() + " " + arestas[251][0].getChar() + " " + arestas[252][0].getChar() + " " + arestas[253][0].getChar() + " |");
+        System.out.println("| " + arestas[254][0].getChar() + " +---------+ +-----+ " + arestas[255][0].getChar() + " | | " + arestas[256][0].getChar() + " +-----+ +---------+ " + arestas[257][0].getChar() + " |");
+        System.out.println("| " + arestas[258][0].getChar() + " +-----------------+ " + arestas[259][0].getChar() + " +-+ " + arestas[260][0].getChar() + " +-----------------+ " + arestas[261][0].getChar() + " |");
+        System.out.println("| " + arestas[262][0].getChar() + " " + arestas[263][0].getChar() + " " + arestas[264][0].getChar() + " " + arestas[265][0].getChar() + " " + arestas[266][0].getChar() + " " + arestas[267][0].getChar() + " " + arestas[268][0].getChar() + " " + arestas[269][0].getChar() + " " + arestas[270][0].getChar() + " " + arestas[271][0].getChar() + " " + arestas[272][0].getChar() + " " + arestas[273][0].getChar() + " " + arestas[274][0].getChar() + " " + arestas[275][0].getChar() + " " + arestas[276][0].getChar() + " " + arestas[277][0].getChar() + " " + arestas[278][0].getChar() + " " + arestas[279][0].getChar() + " " + arestas[280][0].getChar() + " " + arestas[281][0].getChar() + " " + arestas[282][0].getChar() + " " + arestas[283][0].getChar() + " " + arestas[284][0].getChar() + " " + arestas[285][0].getChar() + " " + arestas[286][0].getChar() + " " + arestas[287][0].getChar() + " |");
+        System.out.println("+-----------------------------------------------------+");
+
+
+    }
+
+    /**
+     * Atualiza os vertices percorridos pelo Pac Man, setando a variavel booleana de cada vertice visitado para
+     * "comido = true".
+     * @param pm Pac Man
+     */
     public void atualizaTabuleiro(PacMan pm) {
 
         for (int i = 0; i < pm.getVerticesPercorridos().size(); i++)
             arestas[pm.getVerticesPercorridos().get(i)][0].setComido(); // vertices por onde o pac man passou recebem comido = true
 
-
     }
 
-
+    /**
+     * Apos cada movimento do Pac Man, esta funcoa eh utilizada para se atualizar sua pontuacao. Esta funcao ja verifica
+     * se o vertice atual possui ou nao fruta bonus, bem como pilula de poder, alem de fazer os devidos calculos.
+     * @param t Tabuleiro de jogo.
+     * @param pm Pac Man.
+     */
     public void contabilizaPontuacao(Tabuleiro t, PacMan pm) {
 
         int pont = t.getPontuacao();
 
         if (arestas[pm.getPosicaoAtual()][0].hasFrutaBonus()) {
 
-
             if (t.getNivel() == 1) pont += 100;
             else if (t.getNivel() == 2) pont += 300;
             else if (t.getNivel() == 3) pont += 500;
             t.getArestas()[pm.getAtual().getNumero()][0].resetFrutaBonus(); // fruta bonus = false
             t.getArestas()[pm.getAtual().getNumero()][0].setFrutaBonusComida(); // frutaBonusComida = true
-
 
         } else {
             if (pm.getAtual().getChar() == '*') pont += 50;
@@ -484,6 +640,13 @@ public class Tabuleiro {
 
     }
 
+    /**
+     * Atualiza a cor de todos os fantasmas para "Azul", quando o Pac Man esta sob efeito da Pilula de Poder.
+     * @param f1 Fantasma Blinky.
+     * @param f2 Fantasma Pinky.
+     * @param f3 Fantasma Inky.
+     * @param f4 Fantasma Clyde.
+     */
     public void setCorFantasmas(Blinky f1, Pinky f2, Inky f3, Clyde f4) {
         f1.setCor("Azul");
         f2.setCor("Azul");
@@ -491,6 +654,13 @@ public class Tabuleiro {
         f4.setCor("Azul");
     }
 
+    /**
+     * Quando o efeito da pilula de poder sobre o Pac Man acaba, os fantasmas tem suas cores voltadas para o original.
+     * @param f1 Fantasma Blinky.
+     * @param f2 Fantasma Pinky.
+     * @param f3 Fantasma Inky.
+     * @param f4 Fantasma Clyde.
+     */
     public void resetCorFantasmas(Blinky f1, Pinky f2, Inky f3, Clyde f4) {
         f1.setCor("Vermelha");
         f2.setCor("Rosa");
@@ -498,6 +668,13 @@ public class Tabuleiro {
         f4.setCor("Laranja");
     }
 
+    /**
+     * Metodo utilizada para procurar um vertice disponivel no tabuleiro a fim de se posicionar uma Fruta Bonus.
+     * Para isso, este metodo acessa o vetor de vertices percorridos do Pac Man e sorteia aleatoriamente um deles para
+     * receber a Fruta Bonus.
+     * @param pm Pac Man
+     * @return
+     */
     public int procuraVerticeVazio(PacMan pm) {
 
         int numVertice = - 1;

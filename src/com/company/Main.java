@@ -1,105 +1,64 @@
-
 package com.company;
-
 
 import com.company.elementosDoSistema.*;
 import com.company.engine.*;
+import sun.nio.ch.sctp.SctpNet;
+
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
         Tabuleiro t = new Tabuleiro(288, 4);
-
         t.montaTabuleiro(t);
 
         PacMan pm = new PacMan(t, 0); // cria PacMan no vertice 4
 
         Blinky blinky = new Blinky("Blinky", "Vermelha", t, 262); // cria Blinky no vertice 245
         //blinky.calculaMenorCaminho(t, pm);
-
         Pinky pinky = new Pinky("Pinky", "Rosa", t, 285); // Cria Pinky no vertice 86
         //pinky.calculaMenorCaminho(t, pm);
-
         Inky inky = new Inky("Inky", "Verde", t, 286); // Cria Inky no vertice 47
-
         Clyde clyde = new Clyde("Clyde", "Laranja", t, 287); // Cria Clyde no vertice 98
 
+        pm.setMorto();
+        blinky.setMorto();
+        pinky.setMorto();
+        inky.setMorto();
+        clyde.setMorto();
 
+        System.out.println("Parte 1 - Projeto POO - Pac Man");
+        System.out.println("O tabuleiro de jogo contem 288 vertices, numerados de 0 a 287.");
+        System.out.println("Os vertices representados com um ponto ('.') sao os Pac Dots.");
+        System.out.println("Ja os representados com um asterisco ('*') sao as Pilulas de Poder, localizadas nos vertices 47, 62, 169 e 182.");
+        t.imprimeTabuleiro(t, pm, blinky, pinky, inky, clyde);
 
-        /* --------------------------------------------------------------------------------------------------------------- */
+        Scanner scanner = new Scanner(System.in);
+        int posPacMan, posFantasma;
 
-        int i = 0;
-        boolean flag1 = true;
-        boolean flag2 = true;
+        System.out.println("O Pac Man sera representado pela letra 'P' e o fantasma pela letra 'F'");
+        System.out.print("Escolha um vertice (de 0 287) para posicionar o Pac Man: ");
+        posPacMan = scanner.nextInt();
+        System.out.print("Escolha outro vertice (tambem de 0 a 287) para posiconar o fantasma: ");
+        posFantasma = scanner.nextInt();
 
-        while (pm.getNumVidas() > 0) {
+        pm.resetMorto();
+        blinky.resetMorto();
 
-            if (pm.getVerticesPercorridos().size() == 288) {
-                t.setNivel(t.getNivel() + 1);
-                break;
-            }
+        pm.setVerticeAtual(t, posPacMan);
+        blinky.setNroVerticeAtual(posFantasma);
 
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        blinky.calculaMenorCaminho(t, pm);
+        blinky.getMenorCaminho().removeLast();
 
-            pm.setVerticeAtual(t, i);
-
-            pm.atualizaVerticesPercorridos(t, blinky, pinky, inky, clyde);
-            t.contabilizaPontuacao(t, pm);
-            t.imprimeTabuleiro(t, pm, blinky, pinky, inky, clyde);
-            t.atualizaTabuleiro(pm);
-
-            if (pm.getNumPacDotsComidos() == 10 || pm.getNumPacDotsComidos() == 20) { // setar Fruta Bonus.
-                FrutaBonus fb = new FrutaBonus(t);
-                fb.insereFrutaBonusTabuleiro(t, pm);
-
-            }
-
-            System.out.println("Pontuacao: " + t.getPontuacao());
-            System.out.println("Qtd PacDots comidos: " + pm.getNumPacDotsComidos());
-            System.out.println("Num Vidas: " + pm.getNumVidas());
-            System.out.println("Pilula de Poder: " + pm.getPilulaDePoder());
-
-            pm.gerenciaColisao(t, pm, blinky, pinky, inky, clyde);
-
-            if (pm.getNumVidas() == 2 && flag1) {
-                i = 0;
-                flag1 = false;
-            }
-            if (pm.getNumVidas() == 1 && flag2) {
-                i = 0;
-                flag2 = false;
-            }
-
-            if (!blinky.isMorto()) {
-                blinky.calculaMenorCaminho(t, pm);
-                blinky.setVerticeAtual();
-                pm.gerenciaColisao(t, pm, blinky, pinky, inky, clyde);
-
-            }
-
-            if (!pinky.isMorto()) {
-                pinky.calculaMenorCaminho(t, pm);
-                pinky.setVerticeAtual();
-                pm.gerenciaColisao(t, pm, blinky, pinky, inky, clyde);
-
-            }
-
-            pm.gerenciaColisao(t, pm, blinky, pinky, inky, clyde);
-
-            System.out.println();
-            System.out.println();
-            i++;
+        t.imprimeCaminhoTabuleiro(t, pm, blinky);
 
 
 
-        }
 
-        /* --------------------------------------------------------------------------------------------------------------- */
+
+
 
     }
 }
