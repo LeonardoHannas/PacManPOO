@@ -1,5 +1,7 @@
 package com.company.interfaceGrafica;
 
+import com.company.elementosDoSistema.Clyde;
+import com.company.elementosDoSistema.Inky;
 import com.company.elementosDoSistema.PacMan;
 import com.company.engine.Gerenciador;
 import com.company.engine.VerticeAux;
@@ -15,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 
 import java.util.Iterator;
+import java.util.Random;
 
 public class TabuleiroController {
 
@@ -120,6 +123,126 @@ public class TabuleiroController {
         }
         return false;
     }
+
+    public boolean movimentoFantasmaPermitido(int indiceIMatrizAux, int indiceJMatrizAux, Main.Direcao direcao) {
+
+        VerticeAux vAtual = Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux];
+
+        switch (direcao) {
+
+            case NORTE:
+                if (!vAtual.hasParedeNorte() && Gerenciador.t.getMatrizAux()[indiceIMatrizAux - 1][indiceJMatrizAux] != null) return true;
+                else return false;
+
+            case SUL:
+                if (!vAtual.hasParedeSul() && Gerenciador.t.getMatrizAux()[indiceIMatrizAux + 1][indiceJMatrizAux] != null) return true;
+                else return false;
+
+            case LESTE:
+                if (!vAtual.hasParedeLeste() && Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux + 1] != null) return true;
+                else return false;
+
+            case OESTE:
+                if (!vAtual.hasParedeOeste() && Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux - 1] != null) return true;
+                else return false;
+
+            default:
+                return false;
+
+        }
+    }
+
+public void atualizaNumVerticeInky(int indiceIMatrizAux, int indiceJMatrizAux, Main.Direcao direcaoAtual, Inky inky) {
+
+        if (movimentoFantasmaPermitido(indiceIMatrizAux, indiceJMatrizAux, direcaoAtual)) {
+
+            switch (direcaoAtual) {
+                case NORTE:
+                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux - 1][indiceJMatrizAux] == null)
+                        System.out.println("NULO 1");
+                    inky.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux - 1][indiceJMatrizAux].getNumero());
+                    break;
+
+                case SUL:
+                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux + 1][indiceJMatrizAux] == null)
+                        System.out.println("NULO 2");
+                    inky.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux + 1][indiceJMatrizAux].getNumero());
+                    break;
+
+                case LESTE:
+                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux + 1] == null)
+                        System.out.println("NULO 3");
+                    inky.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux + 1].getNumero());
+                    break;
+
+                case OESTE:
+                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux - 1] == null)
+                        System.out.println("NULO 4");
+                    inky.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux - 1].getNumero());
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+}
+
+    public void atualizaNumVerticeClyde(int indiceIMatrizAux, int indiceJMatrizAux, Main.Direcao direcaoAtual, Clyde clyde) {
+
+        if (movimentoFantasmaPermitido(indiceIMatrizAux, indiceJMatrizAux, direcaoAtual)) {
+
+            switch (direcaoAtual) {
+                case NORTE:
+                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux - 1][indiceJMatrizAux] == null)
+                        System.out.println("NULO 1");
+                    clyde.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux - 1][indiceJMatrizAux].getNumero());
+                    break;
+
+                case SUL:
+                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux + 1][indiceJMatrizAux] == null)
+                        System.out.println("NULO 2");
+                    clyde.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux + 1][indiceJMatrizAux].getNumero());
+                    break;
+
+                case LESTE:
+                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux + 1] == null)
+                        System.out.println("NULO 3");
+                    clyde.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux + 1].getNumero());
+                    break;
+
+                case OESTE:
+                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux - 1] == null)
+                        System.out.println("NULO 4");
+                    clyde.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux - 1].getNumero());
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+    }
+
+ public Main.Direcao atualizaDirecaoMovimento(int indiceIMatrizAux, int indiceJMatrizAux, Main.Direcao direcaoAnterior) {
+        Main.Direcao novaDirecao;
+        if (movimentoFantasmaPermitido(indiceIMatrizAux, indiceJMatrizAux, direcaoAnterior)) novaDirecao = direcaoAnterior;
+        else {
+            Main.Direcao[] direcoes = {Main.Direcao.NORTE, Main.Direcao.SUL, Main.Direcao.LESTE, Main.Direcao.OESTE};
+
+            Random gerador = new Random();
+            do {
+                int pos = gerador.nextInt(4);
+//                System.out.println("**** " + pos + " ****");
+                novaDirecao = direcoes[pos];
+            } while(novaDirecao == direcaoAnterior);
+        }
+
+        return novaDirecao;
+ }
+
+
+
 
     public int procuraIndiceIMatrizAux(int n) {
         for (int i = 0; i < 31; i++) {
