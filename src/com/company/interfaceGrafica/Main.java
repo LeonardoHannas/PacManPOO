@@ -54,8 +54,11 @@ public class Main extends Application {
 
         AnchorPane pane;
 
+
+
         try {
             pane = loader.load();
+
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -63,6 +66,7 @@ public class Main extends Application {
 
         primaryStage.setScene(new Scene(pane));
         primaryStage.show();
+
 
         TabuleiroController tc = loader.getController();
         tc.PacManID.requestFocus();
