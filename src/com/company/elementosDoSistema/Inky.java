@@ -1,6 +1,7 @@
 package com.company.elementosDoSistema;
 
 import com.company.engine.Tabuleiro;
+import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 
@@ -16,8 +17,8 @@ public class Inky extends Fantasma {
      * @param t Tabuleiro de jogo.
      * @param nroVerticeAtual Numero do atual vertice ocupado pelo fantasma.
      */
-    public Inky(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
-        super(nome, cor, t, nroVerticeAtual);
+    public Inky(String nome, String cor, Tabuleiro t, int nroVerticeAtual, Color codigoCorOriginal) {
+        super(nome, cor, t, nroVerticeAtual, codigoCorOriginal);
     }
 
     @Override

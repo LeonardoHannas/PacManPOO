@@ -3,6 +3,10 @@ package com.company.engine;
 import com.company.elementosDoSistema.PacMan;
 import com.company.elementosDoSistema.*;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -16,6 +20,8 @@ public class Tabuleiro {
     private int grauMax; // Numero maximo de ligacoes com outros vertices, partindo-se de um determinado vertice.
     private int[] grau; // vetor que indica quantas arestas cada vertice ja possui.
     private Vertice[][] arestas; // Matriz de vertices do grafo. A ligacao entre 2 vertices determina uma aresta.
+
+    private VerticeAux[][] matrizAux;
 
     private int pontuacao; // Variavel que armazena a pontuacao atual do PacMan.
     private int nivel; // Variavel para armazenar o atual nivel de jogo.
@@ -46,7 +52,110 @@ public class Tabuleiro {
             }
         }
 
+        for (int i = 0; i < arestas.length; i++) {
+
+            switch (i) {
+                case 47:
+                case 62:
+                case 169:
+                case 182:
+                    arestas[i][0].setChar('*');
+                    break;
+                default:
+                    arestas[i][0].setChar('.');
+                    break;
+            }
+        }
+
+        matrizAux = new VerticeAux[31][28];
+        carregarMatrizAux("/Users/leonardohannas1998/Documents/USP/4º Período/SCC0604 - Programação Orientada a Objetos/Trabalho/src/com/company/engine/tabuleiro.txt");
+
     }
+
+    public VerticeAux[][] getMatrizAux() {
+        return matrizAux;
+    }
+
+    private void atualizaParedesMatrixAux(int i, int j) {
+
+        VerticeAux vAux = matrizAux[i][j];
+
+        if (vAux != null) {
+
+            if (i >= 1) {
+                VerticeAux vAux1 = matrizAux[i - 1][j];
+                if (vAux1 != null) {
+                    vAux.setParedeNorte(false);
+                    vAux1.setParedeSul(false);
+                }
+            }
+
+            if (j >= 1) {
+                VerticeAux vAux2 = matrizAux[i][j - 1];
+                if (vAux2 != null) {
+                    vAux.setParedeOeste(false);
+                    vAux2.setParedeLeste(false);
+                }
+            }
+        }
+    }
+
+    public void carregarMatrizAux(String path) {
+
+        try {
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader(path));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            String line = null;
+            try {
+                line = br.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            int i = 0, j = 0;
+
+            int numVerticeAux = 0;
+            while (line != null) {
+
+                for (j = 0; j < 28 /*line.length()*/; j++) {
+
+                    switch (line.charAt(j)) {
+
+                        case '+':
+                        case '|':
+                        case '-':
+                        case ' ':
+                        case '\n':
+                            matrizAux[i][j] = null;
+                            break;
+                        default:
+                            matrizAux[i][j] = new VerticeAux();
+                            atualizaParedesMatrixAux(i, j);
+                            matrizAux[i][j].setPosX(20*i);
+                            matrizAux[i][j].setPosY(20*j);
+                            matrizAux[i][j].setNumero(numVerticeAux);
+                            numVerticeAux++;
+                            break;
+                    }
+                }
+                line = br.readLine();
+                i++;
+                //if (i == 31) break;
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
     /**
      * Retorna o atual nivel do jogo.
@@ -611,6 +720,29 @@ public class Tabuleiro {
         for (int i = 0; i < pm.getVerticesPercorridos().size(); i++)
             arestas[pm.getVerticesPercorridos().get(i)][0].setComido(); // vertices por onde o pac man passou recebem comido = true
 
+        for (int i = 0; i < arestas.length; i++) {
+            if (!arestas[i][0].isComido()) { // Vertice nao comido
+                switch (i) {
+                    case 47:
+                    case 62:
+                    case 169:
+                    case 182:
+                        arestas[i][0].setChar('*'); // Pilulas de Poder
+                        break;
+                    default:
+                        arestas[i][0].setChar('.'); // Pac Dots
+                        break;
+
+                }
+            } else { // Vertice ja comido
+                if (!arestas[i][0].hasFrutaBonus()) arestas[i][0].setChar(' '); // Nao tem fruta bonus e esta comido
+                else { // Possui fruta bonus
+                    if (arestas[i][0].isFrutaBonusComida()) arestas[i][0].setChar(' ');
+                    else arestas[i][0].setChar('!');
+                }
+            }
+        }
+
     }
 
     /**
@@ -632,8 +764,8 @@ public class Tabuleiro {
             t.getArestas()[pm.getAtual().getNumero()][0].setFrutaBonusComida(); // frutaBonusComida = true
 
         } else {
-            if (pm.getAtual().getChar() == '*') pont += 50;
-            else if (pm.getAtual().getChar() == '.') pont += 10;
+            if (!pm.getAtual().isComido() && pm.getAtual().getChar() == '*') pont += 50;
+            else if (!pm.getAtual().isComido() && pm.getAtual().getChar() == '.') pont += 10;
         }
 
         t.setPontuacao(pont);
@@ -652,6 +784,7 @@ public class Tabuleiro {
         f2.setCor("Azul");
         f3.setCor("Azul");
         f4.setCor("Azul");
+
     }
 
     /**

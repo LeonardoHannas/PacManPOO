@@ -12,6 +12,7 @@ public class Vertice {
     private boolean frutaBonus; // Booleano que indica se o vertice possui uma Fruta Bonus.
     private boolean frutaBonusComida; // Se o vertice possui (ou ja possuiu) uma Fruta Bonus, este Booleano indica se tal fruta ja foi (ou nao) comida.
 
+
     /**
      * Construtor de um objeto da classe Vertice.
      * @param numero Numero o qual o vertice contruido tera.
@@ -25,8 +26,9 @@ public class Vertice {
         frutaBonus = false;
         frutaBonusComida = false;
 
-
     }
+
+
 
     /**
      * Verifica se o vertice em questao possui Fruta Bonus. Caso positivo, retorna 'true', senao, retorna 'false'.

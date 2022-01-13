@@ -1,6 +1,7 @@
 package com.company.elementosDoSistema;
 
 import com.company.engine.Tabuleiro;
+import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 
@@ -19,8 +20,8 @@ public class Pinky extends Fantasma {
      * @param t Tabuleiro de jogo.
      * @param nroVerticeAtual Numero do atual vertice ocupado pelo fantasma.
      */
-    public Pinky(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
-        super(nome, cor, t, nroVerticeAtual);
+    public Pinky(String nome, String cor, Tabuleiro t, int nroVerticeAtual, Color codigoCorOriginal) {
+        super(nome, cor, t, nroVerticeAtual, codigoCorOriginal);
         menorCaminho = new LinkedList<>();
 
     }

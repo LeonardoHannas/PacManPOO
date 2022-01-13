@@ -37,7 +37,7 @@ public class PacMan {
             numPacDotsComidos = 1;
         }
         else if (t.getArestas()[nroVerticeAtual][0].getChar() == '*') {
-            t.setPontuacao(0);
+            t.setPontuacao(50);
             numPacDotsComidos = 0;
         }
 
@@ -212,10 +212,10 @@ public class PacMan {
 
                 numVidas--;
                 pm.setVerticeAtual(t, 0);
-                f1.setNroVerticeAtual(262);
-                f2.setNroVerticeAtual(285);
-                f3.setNroVerticeAtual(286);
-                f4.setNroVerticeAtual(287);
+                f1.setNroVerticeAtual(287);
+                f2.setNroVerticeAtual(262);
+                f3.setNroVerticeAtual(128);
+                f4.setNroVerticeAtual(135);
 
                 try {
                     Thread.sleep(4000);

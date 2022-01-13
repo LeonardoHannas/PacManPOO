@@ -1,6 +1,7 @@
 package com.company.elementosDoSistema;
 
 import com.company.engine.Tabuleiro;
+import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 
@@ -11,7 +12,7 @@ public abstract class Fantasma {
 
     protected String nome; // Nome do fantasma.
     protected String cor; // Cor do fantasma.
-
+    protected Color codigoCorOriginal;
     protected int nroVerticeAtual; // Numero do vertice do tabuleiro ocupado pelo fantasma.
 
     protected boolean isMorto; // Booleano contendoa informacao de vida do fantasma: se vivo, 'true', senao, 'false'.
@@ -24,11 +25,12 @@ public abstract class Fantasma {
      * @param t Tabuleiro de jogo.
      * @param nroVerticeAtual Numero do atual vertice ocupado pelo fantasma.
      */
-    public Fantasma(String nome, String cor, Tabuleiro t, int nroVerticeAtual) {
+    public Fantasma(String nome, String cor, Tabuleiro t, int nroVerticeAtual, Color codigoCorOriginal) {
         this.nome = nome;
         this.cor = cor;
         this.nroVerticeAtual = nroVerticeAtual;
         isMorto = false;
+        this.codigoCorOriginal = codigoCorOriginal;
     }
 
     /**
@@ -37,6 +39,10 @@ public abstract class Fantasma {
      */
     public void setCor(String cor) {
         this.cor = cor;
+    }
+
+    public Color getCodigoCorOriginal() {
+        return this.codigoCorOriginal;
     }
 
     /**
