@@ -8,6 +8,7 @@ import com.company.engine.VerticeAux;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -15,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
+import javafx.scene.text.Text;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -39,6 +41,15 @@ public class TabuleiroController {
     @FXML
     AnchorPane ClydeID;
 
+    @FXML
+    Text nivelID;
+
+    @FXML
+    Text vidasID;
+
+    @FXML
+    Text pontuacaoID;
+
     public EventHandler<KeyEvent> movimentoPacMan = new EventHandler<KeyEvent>() {
         @Override
         public void handle(KeyEvent event) {
@@ -46,6 +57,9 @@ public class TabuleiroController {
             if (movimentoPacManPermitido(event) == true) {
 
                 Gerenciador.t.contabilizaPontuacao(Gerenciador.t, Gerenciador.pm);
+//                setPontuacaoID(pontuacaoID);
+//                setNivelID(nivelID);
+
                 System.out.println("Pontuacao:" + Gerenciador.t.getPontuacao());
 
 
@@ -58,6 +72,25 @@ public class TabuleiroController {
     public EventHandler<KeyEvent> getMovimentoPacMan() {
         return movimentoPacMan;
     }
+
+    public void setPontuacaoID(Text pontuacaoID) {
+        pontuacaoID.setText(null);
+        pontuacaoID.setText(Integer.toString(Gerenciador.t.getPontuacao()));
+    }
+
+    public void setNivelID(Text nivelID) {
+        nivelID.setText(null);
+        nivelID.setText(Integer.toString(Gerenciador.t.getNivel()));
+    }
+
+    public void setVidasID(Text vidasID) {
+        vidasID.setText(null);
+        vidasID.setText(Integer.toString(Gerenciador.pm.getNumVidas()));
+
+    }
+
+
+
 
     public boolean movimentoPacManPermitido(KeyEvent event) {
 

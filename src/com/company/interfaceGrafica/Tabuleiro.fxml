@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Arc?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="paneID" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.interfaceGrafica.TabuleiroController">
+<AnchorPane fx:id="paneID" prefHeight="748.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.interfaceGrafica.TabuleiroController">
    <children>
-      <GridPane>
+      <GridPane AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="20.0" minWidth="20.0" prefWidth="20.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="20.0" minWidth="20.0" prefWidth="20.0" />
@@ -969,5 +972,40 @@
             </AnchorPane>
          </children>
       </GridPane>
+      <Label layoutX="14.0" layoutY="647.0" text="PAC MAN">
+         <font>
+            <Font size="49.0" />
+         </font>
+      </Label>
+      <Label layoutX="251.0" layoutY="714.0" text="Pontuação:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="252.0" layoutY="634.0" text="Nível:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="249.0" layoutY="676.0" text="Vidas:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Text fx:id="nivelID" layoutX="376.0" layoutY="657.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="135.21630859375">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="vidasID" layoutX="376.0" layoutY="699.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="135.216304063797">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="pontuacaoID" layoutX="376.0" layoutY="737.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="124.00000154972076">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

@@ -95,6 +95,10 @@ public class Main extends Application {
 
             tl.getKeyFrames().add(new KeyFrame(Duration.millis(100), keyValueX, keyValueY));
 
+            tc.setPontuacaoID(tc.pontuacaoID);
+            tc.setNivelID(tc.nivelID);
+            tc.setVidasID(tc.vidasID);
+
 
 
             tl.play();
