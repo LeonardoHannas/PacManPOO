@@ -11,6 +11,7 @@ public class Gerenciador {
     public static Pinky pinky;
     public static Inky inky;
     public static Clyde clyde;
+    public static FrutaBonus fb;
 
     public static void start() {
 

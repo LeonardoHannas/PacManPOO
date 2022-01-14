@@ -29,4 +29,6 @@ public class Inky extends Fantasma {
         return null;
     }
 
+    public void restartInky() { setNroVerticeAtual(128); }
+
 }

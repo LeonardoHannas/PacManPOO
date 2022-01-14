@@ -55,7 +55,6 @@ public class Blinky extends Fantasma {
         int i = nroVerticeDestino;
         while(ant[i] != - 1) {
             menorCaminho.addFirst(ant[i]);
-//            nroVerticeDestino = ant[i];
             ant[i] = ant[ant[i]];
         }
         menorCaminho.removeFirst();
@@ -88,6 +87,13 @@ public class Blinky extends Fantasma {
      */
     public void setVerticeAtual() {
         if (!isMorto()) nroVerticeAtual = menorCaminho.getFirst();
+    }
+
+    public void restartBlinky() {
+        setMorto();
+        getMenorCaminho().clear();
+        resetMorto();
+        setNroVerticeAtual(287);
     }
 
 

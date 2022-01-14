@@ -75,10 +75,15 @@ public class Tabuleiro {
     public void restartTabuleiro() {
 
         for (int i = 0; i < nroTotalVertices; i++) {
-            arestas[i][0] = new Vertice(i, '.');
-            for (int j = 1; j < grauMax; j++) {
-                arestas[i][j] = new Vertice(-1, '.');
-            }
+
+            arestas[i][0].setNumero(i);
+            arestas[i][0].resetComido();
+            arestas[i][0].resetFrutaBonus();
+            arestas[i][0].resetFrutaBonusComida();
+
+//            for (int j = 1; j < grauMax; j++) {
+//                arestas[i][j] = new Vertice(-1, '.');
+//            }
         }
 
         for (int i = 0; i < arestas.length; i++) {
@@ -200,15 +205,26 @@ public class Tabuleiro {
         this.nivel = nivel;
     }
 
-    public void nivelUp(Tabuleiro t, PacMan pm) {
-        if (pm.getNumPacDotsComidos() == 240 && getArestas()[47][0].isComido() && getArestas()[62][0].isComido() &&
-                getArestas()[169][0].isComido() && getArestas()[182][0].isComido()) setNivel(getNivel() + 1);
-        restartTabuleiro();
-        pm.restartPacMan(t);
+    public void nivelUp(Tabuleiro t, PacMan pm, Blinky f1, Pinky f2, Inky f3, Clyde f4) {
+
+           restartTabuleiro();
+           pm.restartPacMan(t);
+           f1.restartBlinky();
+           f2.restartPinky();
+           f3.restartInky();
+           f4.restartClyde();
+           setNivel(getNivel() + 1);
 
 
         // RESTART MO TABULEIRO, PAC MAN, FANTASMAS, FRUTA BONUS
 
+    }
+
+    public boolean checkNivelUp(PacMan pm) {
+
+        if (pm.getNumPacDotsComidos() == 240 && getArestas()[47][0].isComido() && getArestas()[62][0].isComido() &&
+                getArestas()[169][0].isComido() && getArestas()[182][0].isComido()) return true;
+        else return false;
     }
 
     /**

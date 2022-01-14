@@ -50,6 +50,7 @@ public class TabuleiroController {
     @FXML
     Text pontuacaoID;
 
+
     public EventHandler<KeyEvent> movimentoPacMan = new EventHandler<KeyEvent>() {
         @Override
         public void handle(KeyEvent event) {
@@ -191,26 +192,18 @@ public void atualizaNumVerticeInky(int indiceIMatrizAux, int indiceJMatrizAux, M
 
             switch (direcaoAtual) {
                 case NORTE:
-                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux - 1][indiceJMatrizAux] == null)
-                        System.out.println("NULO 1");
                     inky.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux - 1][indiceJMatrizAux].getNumero());
                     break;
 
                 case SUL:
-                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux + 1][indiceJMatrizAux] == null)
-                        System.out.println("NULO 2");
                     inky.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux + 1][indiceJMatrizAux].getNumero());
                     break;
 
                 case LESTE:
-                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux + 1] == null)
-                        System.out.println("NULO 3");
                     inky.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux + 1].getNumero());
                     break;
 
                 case OESTE:
-                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux - 1] == null)
-                        System.out.println("NULO 4");
                     inky.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux - 1].getNumero());
                     break;
 
@@ -258,7 +251,6 @@ public void atualizaNumVerticeInky(int indiceIMatrizAux, int indiceJMatrizAux, M
             Random gerador = new Random();
             do {
                 int pos = gerador.nextInt(4);
-//                System.out.println("**** " + pos + " ****");
                 novaDirecao = direcoes[pos];
             } while(novaDirecao == direcaoAnterior);
         }

@@ -61,4 +61,11 @@ public class Pinky extends Fantasma {
         if (!isMorto()) nroVerticeAtual = menorCaminho.getFirst();
     }
 
+    public void restartPinky() {
+        setMorto();
+        getMenorCaminho().clear();
+        resetMorto();
+        setNroVerticeAtual(262);
+    }
+
 }

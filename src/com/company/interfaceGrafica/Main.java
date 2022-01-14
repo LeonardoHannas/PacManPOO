@@ -1,5 +1,6 @@
 package com.company.interfaceGrafica;
 
+import com.company.elementosDoSistema.FrutaBonus;
 import com.company.engine.Gerenciador;
 import com.company.engine.Tabuleiro;
 import com.company.engine.VerticeAux;
@@ -23,6 +24,7 @@ import javafx.util.Duration;
 import sun.font.FontManagerNativeLibrary;
 
 import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -80,6 +82,12 @@ public class Main extends Application {
         tl.setOnFinished(event -> {
 
             tl.getKeyFrames().clear();
+
+//            if (Gerenciador.t.checkNivelUp(Gerenciador.pm) == true) {
+//                Gerenciador.t.nivelUp(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
+//
+//            }
+
             int numVerticePacMan = Gerenciador.pm.getPosicaoAtual();
 
             int i = tc.procuraIndiceIMatrizAux(numVerticePacMan);
@@ -100,9 +108,38 @@ public class Main extends Application {
             Gerenciador.pm.gerenciaColisao(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
 
 
+
             tc.setPontuacaoID(tc.pontuacaoID);
             tc.setNivelID(tc.nivelID);
             tc.setVidasID(tc.vidasID);
+
+//            if (Gerenciador.pm.getNumPacDotsComidos() == 10) {
+//                Gerenciador.fb = new FrutaBonus(Gerenciador.t);
+//                Gerenciador.fb.insereFrutaBonusTabuleiro(Gerenciador.t, Gerenciador.pm);
+//                int nroVerticeFrutaBonus = Gerenciador.fb.getNroVerticeFrutaBonus();
+//                int indexI = tc.procuraIndiceIMatrizAux(nroVerticeFrutaBonus);
+//                int indexJ = tc.procuraIndiceJMatrizAux(nroVerticeFrutaBonus);
+//
+//                double x_fb = 20*indexJ;
+//                double y_fb = 20*indexI;
+//
+//
+//                FXMLLoader frutaBonusLoader = new FXMLLoader(getClass().getResource("FrutaBonus.fxml"));
+//                AnchorPane frutaPane = null;
+//                try {
+//                    frutaPane = frutaBonusLoader.load();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//                frutaPane.setLayoutX(x_fb);
+//                frutaPane.setLayoutY(y_fb);
+//
+//                pane.getChildren().add(frutaPane);
+//
+//
+//            }
 
             tl.play();
 
@@ -117,6 +154,11 @@ public class Main extends Application {
         tl2.setOnFinished(event -> {
 
             tl2.getKeyFrames().clear();
+
+//            if (Gerenciador.t.checkNivelUp(Gerenciador.pm) == true) {
+//                Gerenciador.t.nivelUp(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
+//
+//            }
 
             int i, j;
             double x, y;

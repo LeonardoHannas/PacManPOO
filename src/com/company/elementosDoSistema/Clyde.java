@@ -29,4 +29,6 @@ public class Clyde extends Fantasma {
         return null;
     }
 
+    public void restartClyde() { setNroVerticeAtual(135); }
+
 }

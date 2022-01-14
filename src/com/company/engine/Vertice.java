@@ -65,6 +65,10 @@ public class Vertice {
         frutaBonusComida = true;
     }
 
+    public void resetFrutaBonusComida() {
+        frutaBonusComida = false;
+    }
+
     /**
      * Funcao que retorna o numero do vertice em questao.
      * @return int
@@ -101,6 +105,10 @@ public class Vertice {
      */
     public void setComido() {
         comido = true;
+    }
+
+    public void resetComido() {
+        comido = false;
     }
 
     /**

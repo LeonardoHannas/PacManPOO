@@ -62,4 +62,9 @@ public class FrutaBonus {
         t.getArestas()[nroVertice][0].setFrutaBonus(); // frutaBonus = true
 
     }
+
+    public int getNroVerticeFrutaBonus() {
+        return this.nroVertice;
+    }
+
 }
