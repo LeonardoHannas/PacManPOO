@@ -28,8 +28,6 @@ public class Vertice {
 
     }
 
-
-
     /**
      * Verifica se o vertice em questao possui Fruta Bonus. Caso positivo, retorna 'true', senao, retorna 'false'.
      * @return boolean

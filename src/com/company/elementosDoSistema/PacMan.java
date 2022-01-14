@@ -272,18 +272,6 @@ public class PacMan {
                     e.printStackTrace();
                 }
 
-                System.out.println();
-                System.out.println();
-                System.out.println("Voce Morreu!");
-                System.out.println("Vidas restantes: " + pm.getNumVidas());
-
-                t.imprimeTabuleiro(t, pm, f1, f2, f3, f4);
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                return; // reiniciar o jogo
 
             } else { // houve colisao e pilula de poder == true
 
@@ -312,29 +300,7 @@ public class PacMan {
                     } else {
                         t.setPontuacao((int) (t.getPontuacao() + 200 * Math.pow(2, getNumFatasmasComidos())));
                         setNumFatasmasComidos(getNumFatasmasComidos() + 1);
-
                     }
-
-//                    switch (getNumFatasmasComidos()) {
-//                        case 0:
-//                            t.setPontuacao(t.getPontuacao() + 200);
-//                            setNumFatasmasComidos(1);
-//                            break;
-//                        case 1:
-//                            t.setPontuacao(t.getPontuacao() + 400);
-//                            setNumFatasmasComidos(2);
-//                            break;
-//                        case 2:
-//                            t.setPontuacao(t.getPontuacao() + 800);
-//                            setNumFatasmasComidos(3);
-//                            break;
-//                        case 3:
-//                            t.setPontuacao(t.getPontuacao() + 1600);
-//                            setNumFatasmasComidos(4);
-//                            break;
-//                        default:
-//                            break;
-//                    }
 
                 } else {
                     pilulaDePoder = false;

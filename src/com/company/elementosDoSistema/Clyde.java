@@ -29,6 +29,9 @@ public class Clyde extends Fantasma {
         return null;
     }
 
+    /**
+     * Funcao para levar o fantasma Clyde para para o seu vertice de origem.
+     */
     public void restartClyde() { setNroVerticeAtual(135); }
 
 }

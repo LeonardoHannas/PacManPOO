@@ -58,11 +58,14 @@ public class FrutaBonus {
     public void insereFrutaBonusTabuleiro(Tabuleiro t, PacMan pm) {
 
         nroVertice = t.procuraVerticeVazio(pm);
-
         t.getArestas()[nroVertice][0].setFrutaBonus(); // frutaBonus = true
 
     }
 
+    /**
+     * Metodo para se ter acesso ao numero do vertice onde a fruta bonus se encontra.
+     * @return int
+     */
     public int getNroVerticeFrutaBonus() {
         return this.nroVertice;
     }

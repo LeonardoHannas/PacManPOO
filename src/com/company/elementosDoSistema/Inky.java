@@ -29,6 +29,9 @@ public class Inky extends Fantasma {
         return null;
     }
 
+    /**
+     * Funcao para levar o fantasma Inky para para o seu vertice de origem.
+     */
     public void restartInky() { setNroVerticeAtual(128); }
 
 }

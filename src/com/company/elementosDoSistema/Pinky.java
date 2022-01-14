@@ -48,7 +48,6 @@ public class Pinky extends Fantasma {
         int i = nroVerticeDestino;
         while(ant[i] != - 1) {
             menorCaminho.addFirst(ant[i]);
-//            nroVerticeDestino = ant[i];
             ant[i] = ant[ant[i]];
         }
         menorCaminho.removeFirst();
@@ -61,6 +60,9 @@ public class Pinky extends Fantasma {
         if (!isMorto()) nroVerticeAtual = menorCaminho.getFirst();
     }
 
+    /**
+     * Funcao para levar o fantasma Pinky para para o seu vertice de origem, alem de resetar suas confirguracoes.
+     */
     public void restartPinky() {
         setMorto();
         getMenorCaminho().clear();

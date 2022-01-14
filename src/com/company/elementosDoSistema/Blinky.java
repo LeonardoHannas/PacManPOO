@@ -35,7 +35,6 @@ public class Blinky extends Fantasma {
         return menorCaminho;
     }
 
-
     /**
      * Calcula o menor camingo entre o fantasma e o Pac Man, seguindo-se o Algoritmo de Dijkstra.
      * Alem disso, o menor caminho pode ser alterado, dependendo da quantidade de Pac Dots ja comidos pelo Pac Man. Caso
@@ -89,15 +88,14 @@ public class Blinky extends Fantasma {
         if (!isMorto()) nroVerticeAtual = menorCaminho.getFirst();
     }
 
+    /**
+     * Funcao para levar o fantasma Blinky para para o seu vertice de origem, alem de resetar suas confirguracoes.
+     */
     public void restartBlinky() {
         setMorto();
         getMenorCaminho().clear();
         resetMorto();
         setNroVerticeAtual(287);
     }
-
-
-
-
 
 }

@@ -14,7 +14,6 @@ public abstract class Fantasma {
     protected String cor; // Cor do fantasma.
     protected Color codigoCorOriginal;
     protected int nroVerticeAtual; // Numero do vertice do tabuleiro ocupado pelo fantasma.
-
     protected boolean isMorto; // Booleano contendoa informacao de vida do fantasma: se vivo, 'true', senao, 'false'.
 
 
@@ -41,6 +40,10 @@ public abstract class Fantasma {
         this.cor = cor;
     }
 
+    /**
+     * Metodo para se ter acesso ao codigo RGB da cor original do fantasma.
+     * @return Color
+     */
     public Color getCodigoCorOriginal() {
         return this.codigoCorOriginal;
     }

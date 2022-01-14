@@ -68,10 +68,13 @@ public class Tabuleiro {
         }
 
         matrizAux = new VerticeAux[31][28];
-        carregarMatrizAux("/Users/leonardohannas1998/Documents/USP/4º Período/SCC0604 - Programação Orientada a Objetos/Trabalho/src/com/company/engine/tabuleiro.txt");
 
+        carregarMatrizAux("src/com/company/engine/tabuleiro.txt");
     }
 
+    /**
+     * Funcao para reiniciar as confuguracoes do tabuleiro, apos o aumento do nivel do jogo.
+     */
     public void restartTabuleiro() {
 
         for (int i = 0; i < nroTotalVertices; i++) {
@@ -81,9 +84,6 @@ public class Tabuleiro {
             arestas[i][0].resetFrutaBonus();
             arestas[i][0].resetFrutaBonusComida();
 
-//            for (int j = 1; j < grauMax; j++) {
-//                arestas[i][j] = new Vertice(-1, '.');
-//            }
         }
 
         for (int i = 0; i < arestas.length; i++) {
@@ -103,11 +103,21 @@ public class Tabuleiro {
 
     }
 
-
+    /**
+     * Metodo que da acesso a matriz auxiliar "matrizAux", carregada na Memoria RAM do computador, apos a leitura
+     * do arquivo "tabuleiro.txt".
+     * @return VerticeAux[][]
+     */
     public VerticeAux[][] getMatrizAux() {
         return matrizAux;
     }
 
+    /**
+     * Atualiza as paredes do vertice da posicao (i,j) na matriz auxiliar, bem como faz atualizacao nas paredes
+     * dos vertices adjacentes.
+     * @param i Numero da linha na matriz auxiliar
+     * @param j Numero da coluna na matriz auxiliar.
+     */
     private void atualizaParedesMatrixAux(int i, int j) {
 
         VerticeAux vAux = matrizAux[i][j];
@@ -132,6 +142,11 @@ public class Tabuleiro {
         }
     }
 
+    /**
+     * Faz a leitura do arquivo "tabuleiro..txt" e faz as insercoes das devidas paredes entre os vertices,
+     * a fum de que se possa amalisar se o movimento dada pelo ususario ao Pac Man eh permitido.
+     * @param path Localizacao do arquivo "tabuleiro.txt" a ser lido por este metodo.
+     */
     public void carregarMatrizAux(String path) {
 
         try {
@@ -175,9 +190,7 @@ public class Tabuleiro {
                 }
                 line = br.readLine();
                 i++;
-                //if (i == 31) break;
             }
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -186,7 +199,6 @@ public class Tabuleiro {
         }
 
     }
-
 
 
     /**
@@ -205,6 +217,15 @@ public class Tabuleiro {
         this.nivel = nivel;
     }
 
+    /**
+     * Aumenta o nivel de jogo, assim que o Pac Man come a quantidade minima de Paa Dots e de Pilulas de Poder.
+     * @param t Tabuleiro de jogo
+     * @param pm Pac Man
+     * @param f1 Fantasma Blinky
+     * @param f2 Fantasma Pinky
+     * @param f3 Fantasma Inky
+     * @param f4 Fantasma Clyde
+     */
     public void nivelUp(Tabuleiro t, PacMan pm, Blinky f1, Pinky f2, Inky f3, Clyde f4) {
 
            restartTabuleiro();
@@ -215,11 +236,14 @@ public class Tabuleiro {
            f4.restartClyde();
            setNivel(getNivel() + 1);
 
-
-        // RESTART MO TABULEIRO, PAC MAN, FANTASMAS, FRUTA BONUS
-
     }
 
+    /**
+     * Checa se as condicoes minimas para evoluir de nivel foram satisfeitas. Retorna 'true', caso tais condicoes
+     * forem satisfeitas, e 'false', caso contrario.
+     * @param pm Pac Man
+     * @return boolean
+     */
     public boolean checkNivelUp(PacMan pm) {
 
         if (pm.getNumPacDotsComidos() == 240 && getArestas()[47][0].isComido() && getArestas()[62][0].isComido() &&
@@ -686,81 +710,6 @@ public class Tabuleiro {
         System.out.println("| " + arestas[258][0].getChar() + " +-----------------+ " + arestas[259][0].getChar() + " +-+ " + arestas[260][0].getChar() + " +-----------------+ " + arestas[261][0].getChar() + " |");
         System.out.println("| " + arestas[262][0].getChar() + " " + arestas[263][0].getChar() + " " + arestas[264][0].getChar() + " " + arestas[265][0].getChar() + " " + arestas[266][0].getChar() + " " + arestas[267][0].getChar() + " " + arestas[268][0].getChar() + " " + arestas[269][0].getChar() + " " + arestas[270][0].getChar() + " " + arestas[271][0].getChar() + " " + arestas[272][0].getChar() + " " + arestas[273][0].getChar() + " " + arestas[274][0].getChar() + " " + arestas[275][0].getChar() + " " + arestas[276][0].getChar() + " " + arestas[277][0].getChar() + " " + arestas[278][0].getChar() + " " + arestas[279][0].getChar() + " " + arestas[280][0].getChar() + " " + arestas[281][0].getChar() + " " + arestas[282][0].getChar() + " " + arestas[283][0].getChar() + " " + arestas[284][0].getChar() + " " + arestas[285][0].getChar() + " " + arestas[286][0].getChar() + " " + arestas[287][0].getChar() + " |");
         System.out.println("+-----------------------------------------------------+");
-
-    }
-
-    /**
-     * Funcao feita exclusivamente para esta parte 1 do projeto. Seu objetivo eh mostrar no terminal o caminho que o
-     * fantasma deve seguir visando a busca do Pac Man.
-     * @param t Tabuleiro de jogo.
-     * @param pm Pac Man (para saber qual eh a sua posicao atual).
-     * @param blinky Fantasma Blinky (tambem para saber a sua posicao atual para calcular o caminho minimo).
-     */
-    public void imprimeCaminhoTabuleiro(Tabuleiro t, PacMan pm, Blinky blinky) {
-
-        for (int i = 0; i < t.arestas.length; i++) {
-
-            switch (i) {
-                case 47:
-                case 62:
-                case 169:
-                case 182:
-                    arestas[i][0].setChar('*');
-                    break;
-                default:
-                    arestas[i][0].setChar('.');
-                    break;
-            }
-        }
-
-        int posPacMan, posBlinky;
-
-        if (!pm.isMorto()) {
-            posPacMan = pm.getPosicaoAtual();
-            t.getArestas()[posPacMan][0].setChar('P');
-        }
-
-        if (!blinky.isMorto()) {
-            posBlinky = blinky.getNroVerticeAtual();
-            t.getArestas()[posBlinky][0].setChar('F');
-        }
-
-        for (int i = 0; i < blinky.getMenorCaminho().size(); i++) {
-            t.getArestas()[blinky.getMenorCaminho().get(i)][0].setChar('#');
-        }
-
-        System.out.println("+-------------------------+ +-------------------------+");
-        System.out.println("| " + arestas[0][0].getChar() + " " + arestas[1][0].getChar() + " " + arestas[2][0].getChar() + " " + arestas[3][0].getChar() + " " + arestas[4][0].getChar() + " " + arestas[5][0].getChar() + " " + arestas[6][0].getChar() + " " + arestas[7][0].getChar() + " " + arestas[8][0].getChar() + " " + arestas[9][0].getChar() + " " + arestas[10][0].getChar() + " " + arestas[11][0].getChar() + " | " + "| " + arestas[12][0].getChar() + " " + arestas[13][0].getChar() + " " + arestas[14][0].getChar() + " " + arestas[15][0].getChar() + " " + arestas[16][0].getChar() + " " + arestas[17][0].getChar() + " " + arestas[18][0].getChar() + " " + arestas[19][0].getChar() + " " + arestas[20][0].getChar() + " " + arestas[21][0].getChar() + " " + arestas[22][0].getChar() + " " + arestas[23][0].getChar() + " |");
-        System.out.println("| " + arestas[24][0].getChar() + " +-----+ " + arestas[25][0].getChar() + " +-------+ " + arestas[26][0].getChar() + " | | " + arestas[27][0].getChar() + " +-------+ " + arestas[28][0].getChar() + " +-----+ " + arestas[29][0].getChar() + " |");
-        System.out.println("| " + arestas[30][0].getChar() + " |     | " + arestas[31][0].getChar() + " |       | " + arestas[32][0].getChar() + " | | " + arestas[33][0].getChar() + " |       | " + arestas[34][0].getChar() + " |     | " + arestas[35][0].getChar() + " |");
-        System.out.println("| " + arestas[36][0].getChar() + " +-----+ " + arestas[37][0].getChar() + " +-------+ " + arestas[38][0].getChar() + " +-+ " + arestas[39][0].getChar() + " +-------+ " + arestas[40][0].getChar() + " +-----+ " + arestas[41][0].getChar() + " |");
-        System.out.println("| " + arestas[42][0].getChar() + " " + arestas[43][0].getChar() + " " + arestas[44][0].getChar() + " " + arestas[45][0].getChar() + " " + arestas[46][0].getChar() + " " + arestas[47][0].getChar() + " " + arestas[48][0].getChar() + " " + arestas[49][0].getChar() + " " + arestas[50][0].getChar() + " " + arestas[51][0].getChar() + " " + arestas[52][0].getChar() + " " + arestas[53][0].getChar() + " " + arestas[54][0].getChar() + " " + arestas[55][0].getChar() + " " + arestas[56][0].getChar() + " " + arestas[57][0].getChar() + " " + arestas[58][0].getChar() + " " + arestas[59][0].getChar() + " " + arestas[60][0].getChar() + " " + arestas[61][0].getChar() + " " + arestas[62][0].getChar() + " " + arestas[63][0].getChar() + " " + arestas[64][0].getChar() + " " + arestas[65][0].getChar() + " " + arestas[66][0].getChar() + " " + arestas[67][0].getChar() + " |");
-        System.out.println("| " + arestas[68][0].getChar() + " +-----+ " + arestas[69][0].getChar() + " +-+ " + arestas[70][0].getChar() + " +-------------+ " + arestas[71][0].getChar() + " +-+ " + arestas[72][0].getChar() + " +-----+ " + arestas[73][0].getChar() + " |");
-        System.out.println("| " + arestas[74][0].getChar() + " +-----+ " + arestas[75][0].getChar() + " | | " + arestas[76][0].getChar() + " +-----+ +-----+ " + arestas[77][0].getChar() + " | | " + arestas[78][0].getChar() + " +-----+ " + arestas[79][0].getChar() + " |");
-        System.out.println("| " + arestas[80][0].getChar() + " " + arestas[81][0].getChar() + " " + arestas[82][0].getChar() + " " + arestas[83][0].getChar() + " " + arestas[84][0].getChar() + " " + arestas[85][0].getChar() + " | | " + arestas[86][0].getChar() + " " + arestas[87][0].getChar() + " " + arestas[88][0].getChar() + " " + arestas[89][0].getChar() + " | | " + arestas[90][0].getChar() + " " + arestas[91][0].getChar() + " " + arestas[92][0].getChar() + " " + arestas[93][0].getChar() + " | | " + arestas[94][0].getChar() + " " + arestas[95][0].getChar() + " " + arestas[96][0].getChar() + " " + arestas[97][0].getChar() + " " + arestas[98][0].getChar() + " " + arestas[99][0].getChar() + " |");
-        System.out.println("+---------+ " + arestas[100][0].getChar() + " | +-----+ " + arestas[101][0].getChar() + " | | " + arestas[102][0].getChar() + " +-----+ | " + arestas[103][0].getChar() + " +---------+");
-        System.out.println("          | " + arestas[104][0].getChar() + " | +-----+ " + arestas[105][0].getChar() + " +-+ " + arestas[106][0].getChar() + " +-----+ | " + arestas[107][0].getChar() + " |          ");
-        System.out.println("          | " + arestas[108][0].getChar() + " | | " + arestas[109][0].getChar() + " " + arestas[110][0].getChar() + " " + arestas[111][0].getChar() + " " + arestas[112][0].getChar() + " " + arestas[113][0].getChar() + " " + arestas[114][0].getChar() + " " + arestas[115][0].getChar() + " " + arestas[116][0].getChar() + " " + arestas[117][0].getChar() + " " + arestas[118][0].getChar() + " | | " + arestas[119][0].getChar() + " |          ");
-        System.out.println("          | " + arestas[120][0].getChar() + " | | " + arestas[121][0].getChar() + " +-------------+ " + arestas[122][0].getChar() + " | | " + arestas[123][0].getChar() + " |          ");
-        System.out.println("          | " + arestas[124][0].getChar() + " +-+ " + arestas[125][0].getChar() + " |             | " + arestas[126][0].getChar() + " +-+ " + arestas[127][0].getChar() + " |          ");
-        System.out.println("          | " + arestas[128][0].getChar() + " " + arestas[129][0].getChar() + " " + arestas[130][0].getChar() + " " + arestas[131][0].getChar() + " |             | " + arestas[132][0].getChar() + " " + arestas[133][0].getChar() + " " + arestas[134][0].getChar() + " " + arestas[135][0].getChar() + " |          ");
-        System.out.println("          | " + arestas[136][0].getChar() + " +-+ " + arestas[137][0].getChar() + " |             | " + arestas[138][0].getChar() + " +-+ " + arestas[139][0].getChar() + " |          ");
-        System.out.println("          | " + arestas[140][0].getChar() + " | | " + arestas[141][0].getChar() + " +-------------+ " + arestas[142][0].getChar() + " | | " + arestas[143][0].getChar() + " |          ");
-        System.out.println("          | " + arestas[144][0].getChar() + " | | " + arestas[145][0].getChar() + " " + arestas[146][0].getChar() + " " + arestas[147][0].getChar() + " " + arestas[148][0].getChar() + " " + arestas[149][0].getChar() + " " + arestas[150][0].getChar() + " " + arestas[151][0].getChar() + " " + arestas[152][0].getChar() + " " + arestas[153][0].getChar() + " " + arestas[154][0].getChar() + " | | " + arestas[155][0].getChar() + " |          ");
-        System.out.println("          | " + arestas[156][0].getChar() + " | | " + arestas[157][0].getChar() + " +-------------+ " + arestas[158][0].getChar() + " | | " + arestas[159][0].getChar() + " |          ");
-        System.out.println("+---------+ " + arestas[160][0].getChar() + " +-+ " + arestas[161][0].getChar() + " +-----+ +-----+ " + arestas[162][0].getChar() + " +-+ " + arestas[163][0].getChar() + " +---------+");
-        System.out.println("| " + arestas[164][0].getChar() + " " + arestas[165][0].getChar() + " " + arestas[166][0].getChar() + " " + arestas[167][0].getChar() + " " + arestas[168][0].getChar() + " " + arestas[169][0].getChar() + " " + arestas[170][0].getChar() + " " + arestas[171][0].getChar() + " " + arestas[172][0].getChar() + " " + arestas[173][0].getChar() + " " + arestas[174][0].getChar() + " " + arestas[175][0].getChar() + " | | " + arestas[176][0].getChar() + " " + arestas[177][0].getChar() + " " + arestas[178][0].getChar() + " " + arestas[179][0].getChar() + " " + arestas[180][0].getChar() + " " + arestas[181][0].getChar() + " " + arestas[182][0].getChar() + " " + arestas[183][0].getChar() + " " + arestas[184][0].getChar() + " " + arestas[185][0].getChar() + " " + arestas[186][0].getChar() + " " + arestas[187][0].getChar() + " |");
-        System.out.println("| " + arestas[188][0].getChar() + " +-----+ " + arestas[189][0].getChar() + " +-------+ " + arestas[190][0].getChar() + " | | " + arestas[191][0].getChar() + " +-------+ " + arestas[192][0].getChar() + " +-----+ " + arestas[193][0].getChar() + " |");
-        System.out.println("| " + arestas[194][0].getChar() + " +---+ | " + arestas[195][0].getChar() + " +-------+ " + arestas[196][0].getChar() + " +-+ " + arestas[197][0].getChar() + " +-------+ " + arestas[198][0].getChar() + " | +---+ " + arestas[199][0].getChar() + " |");
-        System.out.println("| " + arestas[200][0].getChar() + " " + arestas[201][0].getChar() + " " + arestas[202][0].getChar() + " | | " + arestas[203][0].getChar() + " " + arestas[204][0].getChar() + " " + arestas[205][0].getChar() + " " + arestas[206][0].getChar() + " " + arestas[207][0].getChar() + " " + arestas[208][0].getChar() + " " + arestas[209][0].getChar() + " " + arestas[210][0].getChar() + " " + arestas[211][0].getChar() + " " + arestas[212][0].getChar() + " " + arestas[213][0].getChar() + " " + arestas[214][0].getChar() + " " + arestas[215][0].getChar() + " " + arestas[216][0].getChar() + " " + arestas[217][0].getChar() + " " + arestas[218][0].getChar() + " | | " + arestas[219][0].getChar() + " " + arestas[220][0].getChar() + " " + arestas[221][0].getChar() + " |");
-        System.out.println("+---+ " + arestas[222][0].getChar() + " | | " + arestas[223][0].getChar() + " +-+ " + arestas[224][0].getChar() + " +-------------+ " + arestas[225][0].getChar() + " +-+ " + arestas[226][0].getChar() + " | | " + arestas[227][0].getChar() + " +---+");
-        System.out.println("+---+ " + arestas[228][0].getChar() + " +-+ " + arestas[229][0].getChar() + " | | " + arestas[230][0].getChar() + " +-----+ +-----+ " + arestas[231][0].getChar() + " | | " + arestas[232][0].getChar() + " +-+ " + arestas[233][0].getChar() + " +---+");
-        System.out.println("| " + arestas[234][0].getChar() + " " + arestas[235][0].getChar() + " " + arestas[236][0].getChar() + " " + arestas[237][0].getChar() + " " + arestas[238][0].getChar() + " " + arestas[239][0].getChar() + " | | " + arestas[240][0].getChar() + " " + arestas[241][0].getChar() + " " + arestas[242][0].getChar() + " " + arestas[243][0].getChar() + " | | " + arestas[244][0].getChar() + " " + arestas[245][0].getChar() + " " + arestas[246][0].getChar() + " " + arestas[247][0].getChar() + " | | " + arestas[248][0].getChar() + " " + arestas[249][0].getChar() + " " + arestas[250][0].getChar() + " " + arestas[251][0].getChar() + " " + arestas[252][0].getChar() + " " + arestas[253][0].getChar() + " |");
-        System.out.println("| " + arestas[254][0].getChar() + " +---------+ +-----+ " + arestas[255][0].getChar() + " | | " + arestas[256][0].getChar() + " +-----+ +---------+ " + arestas[257][0].getChar() + " |");
-        System.out.println("| " + arestas[258][0].getChar() + " +-----------------+ " + arestas[259][0].getChar() + " +-+ " + arestas[260][0].getChar() + " +-----------------+ " + arestas[261][0].getChar() + " |");
-        System.out.println("| " + arestas[262][0].getChar() + " " + arestas[263][0].getChar() + " " + arestas[264][0].getChar() + " " + arestas[265][0].getChar() + " " + arestas[266][0].getChar() + " " + arestas[267][0].getChar() + " " + arestas[268][0].getChar() + " " + arestas[269][0].getChar() + " " + arestas[270][0].getChar() + " " + arestas[271][0].getChar() + " " + arestas[272][0].getChar() + " " + arestas[273][0].getChar() + " " + arestas[274][0].getChar() + " " + arestas[275][0].getChar() + " " + arestas[276][0].getChar() + " " + arestas[277][0].getChar() + " " + arestas[278][0].getChar() + " " + arestas[279][0].getChar() + " " + arestas[280][0].getChar() + " " + arestas[281][0].getChar() + " " + arestas[282][0].getChar() + " " + arestas[283][0].getChar() + " " + arestas[284][0].getChar() + " " + arestas[285][0].getChar() + " " + arestas[286][0].getChar() + " " + arestas[287][0].getChar() + " |");
-        System.out.println("+-----------------------------------------------------+");
-
 
     }
 
