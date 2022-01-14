@@ -23,7 +23,9 @@ public class PacMan {
     private int numPacDotsComidos; // Variavel que armazena o numero de Pac Dots ja comidos pelo Pac Man.
     private int numFatasmasComidos; // Variavel que armazena o numero de fantasmas ja comidos pelo Pac Man.
 
-    private boolean isMorto; // Booleano contendoa informacao de vida do Pac Man: se vivo, 'true', senao, 'false'.
+    private boolean isMorto; // Booleano contendo a informacao de vida do Pac Man: se vivo, 'true', senao, 'false'.
+    private boolean ganhouVidaExtra; // Booleano para saber se o Pac Man ganhou sua vida extra ao atingir os 10 mil pontos.
+
 
     /**
      * Construtor padrao do Pac Man.
@@ -54,8 +56,13 @@ public class PacMan {
         tempoFinal = 0;
 
         isMorto = false;
+        ganhouVidaExtra = false;
 
     }
+
+    public void setGanhouVidaExtra() { ganhouVidaExtra = true; }
+
+    public boolean getGanhouVidaExtra() { return ganhouVidaExtra; }
 
     /**
      * Metodo que acessa a informacao de que o Pac Man esta morto ou vivo.
@@ -149,6 +156,12 @@ public class PacMan {
     }
 
     /**
+     * Metodo para setar a quantidade total de vidas restantes do Pac Man.
+     * @param numVidas Numero de vidas a ser setado.
+     */
+    public void setNumVidas(int numVidas) { this.numVidas = numVidas; }
+
+    /**
      * Acessa e retorna o ArrayList com os numeros dos vertices percorridos pelo Pac Man.
      * @return ArrayList
      */
@@ -218,7 +231,7 @@ public class PacMan {
                 f4.setNroVerticeAtual(135);
 
                 try {
-                    Thread.sleep(4000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -229,12 +242,12 @@ public class PacMan {
                 System.out.println("Vidas restantes: " + pm.getNumVidas());
 
                 t.imprimeTabuleiro(t, pm, f1, f2, f3, f4);
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return; // reiniciar o jogo
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                return; // reiniciar o jogo
 
             } else { // houve colisao e pilula de poder == true
 
@@ -257,26 +270,35 @@ public class PacMan {
                             break;
                     }
 
-                    switch (getNumFatasmasComidos()) {
-                        case 0:
-                            t.setPontuacao(t.getPontuacao() + 200);
-                            setNumFatasmasComidos(1);
-                            break;
-                        case 1:
-                            t.setPontuacao(t.getPontuacao() + 400);
-                            setNumFatasmasComidos(2);
-                            break;
-                        case 2:
-                            t.setPontuacao(t.getPontuacao() + 800);
-                            setNumFatasmasComidos(3);
-                            break;
-                        case 3:
-                            t.setPontuacao(t.getPontuacao() + 1600);
-                            setNumFatasmasComidos(4);
-                            break;
-                        default:
-                            break;
+                    if (getNumFatasmasComidos() == 0) {
+                        t.setPontuacao(t.getPontuacao() + 200);
+                        setNumFatasmasComidos(1);
+                    } else {
+                        t.setPontuacao((int) (t.getPontuacao() + 200 * Math.pow(2, getNumFatasmasComidos())));
+                        setNumFatasmasComidos(getNumFatasmasComidos() + 1);
+
                     }
+
+//                    switch (getNumFatasmasComidos()) {
+//                        case 0:
+//                            t.setPontuacao(t.getPontuacao() + 200);
+//                            setNumFatasmasComidos(1);
+//                            break;
+//                        case 1:
+//                            t.setPontuacao(t.getPontuacao() + 400);
+//                            setNumFatasmasComidos(2);
+//                            break;
+//                        case 2:
+//                            t.setPontuacao(t.getPontuacao() + 800);
+//                            setNumFatasmasComidos(3);
+//                            break;
+//                        case 3:
+//                            t.setPontuacao(t.getPontuacao() + 1600);
+//                            setNumFatasmasComidos(4);
+//                            break;
+//                        default:
+//                            break;
+//                    }
 
                 } else {
                     pilulaDePoder = false;

@@ -755,6 +755,11 @@ public class Tabuleiro {
 
         int pont = t.getPontuacao();
 
+        if (pont >= 10000 && !pm.getGanhouVidaExtra()){
+            pm.setNumVidas(pm.getNumVidas() + 1); // Ganha 1 vida extra
+            pm.setGanhouVidaExtra();
+        }
+
         if (arestas[pm.getPosicaoAtual()][0].hasFrutaBonus()) {
 
             if (t.getNivel() == 1) pont += 100;

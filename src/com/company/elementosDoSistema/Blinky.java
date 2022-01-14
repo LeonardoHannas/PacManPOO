@@ -55,7 +55,7 @@ public class Blinky extends Fantasma {
         int i = nroVerticeDestino;
         while(ant[i] != - 1) {
             menorCaminho.addFirst(ant[i]);
-            nroVerticeDestino = ant[i];
+//            nroVerticeDestino = ant[i];
             ant[i] = ant[ant[i]];
         }
         menorCaminho.removeFirst();
@@ -87,7 +87,7 @@ public class Blinky extends Fantasma {
      * Atualiza a posicao do fantasma no tabuleiro, fazendo ele andar para o seu proximo vertice calculado.
      */
     public void setVerticeAtual() {
-        nroVerticeAtual = menorCaminho.getFirst();
+        if (!isMorto()) nroVerticeAtual = menorCaminho.getFirst();
     }
 
 

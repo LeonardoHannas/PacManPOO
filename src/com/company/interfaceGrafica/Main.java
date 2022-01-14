@@ -95,10 +95,13 @@ public class Main extends Application {
 
             tl.getKeyFrames().add(new KeyFrame(Duration.millis(100), keyValueX, keyValueY));
 
+
+            Gerenciador.pm.gerenciaColisao(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
+
+
             tc.setPontuacaoID(tc.pontuacaoID);
             tc.setNivelID(tc.nivelID);
             tc.setVidasID(tc.vidasID);
-
 
 
             tl.play();
@@ -113,13 +116,14 @@ public class Main extends Application {
 
             tl2.getKeyFrames().clear();
 
-            if (!Gerenciador.blinky.isMorto()) {
+            int i, j;
+            double x, y;
 
-                int i, j;
-                double x, y;
+            if (!Gerenciador.blinky.isMorto()) {
 
                 Gerenciador.blinky.calculaMenorCaminho(Gerenciador.t, Gerenciador.pm);
                 Gerenciador.blinky.setVerticeAtual();
+
                 i = tc.procuraIndiceIMatrizAux(Gerenciador.blinky.getNroVerticeAtual());
                 j = tc.procuraIndiceJMatrizAux(Gerenciador.blinky.getNroVerticeAtual());
 
@@ -131,14 +135,27 @@ public class Main extends Application {
 
                 tl2.getKeyFrames().add(new KeyFrame(Duration.millis(300), keyValueX, keyValueY));
 
-                Gerenciador.pm.gerenciaColisao(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
+            } else {
+
+                Gerenciador.blinky.setNroVerticeAtual(287);
+                i = tc.procuraIndiceIMatrizAux(287);
+                j = tc.procuraIndiceJMatrizAux(287);
+
+                x = 20*j - tc.BlinkyID.getLayoutX();
+                y = 20*i - tc.BlinkyID.getLayoutY();
+
+                KeyValue keyValueX = new KeyValue(tc.BlinkyID.translateXProperty(), x);
+                KeyValue keyValueY = new KeyValue(tc.BlinkyID.translateYProperty(), y);
+
+                tl2.getKeyFrames().add(new KeyFrame(Duration.millis(300), keyValueX, keyValueY));
+
+                Gerenciador.blinky.resetMorto();
 
             }
 
-            if (!Gerenciador.pinky.isMorto()) {
+            Gerenciador.pm.gerenciaColisao(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
 
-                int i, j;
-                double x, y;
+            if (!Gerenciador.pinky.isMorto()) {
 
                 Gerenciador.pinky.calculaMenorCaminho(Gerenciador.t, Gerenciador.pm);
                 Gerenciador.pinky.setVerticeAtual();
@@ -156,15 +173,31 @@ public class Main extends Application {
 
                 Gerenciador.pm.gerenciaColisao(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
 
+            } else {
+
+                Gerenciador.pinky.setNroVerticeAtual(262);
+                i = tc.procuraIndiceIMatrizAux(262);
+                j = tc.procuraIndiceJMatrizAux(262);
+
+                x = 20*j - tc.PinkyID.getLayoutX();
+                y = 20*i - tc.PinkyID.getLayoutY();
+
+                KeyValue keyValueX = new KeyValue(tc.PinkyID.translateXProperty(), x);
+                KeyValue keyValueY = new KeyValue(tc.PinkyID.translateYProperty(), y);
+
+                tl2.getKeyFrames().add(new KeyFrame(Duration.millis(300), keyValueX, keyValueY));
+
+                Gerenciador.pinky.resetMorto();
+
             }
+
+            Gerenciador.pm.gerenciaColisao(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
+
 
 
             Direcao[] direcoes = {Direcao.NORTE, Direcao.SUL, Direcao.LESTE, Direcao.OESTE};
 
             if (!Gerenciador.inky.isMorto()) {
-
-                int i, j;
-                double x, y;
 
                 // Posicao Inicial do fantasma na matrix de vertices
                 i = tc.procuraIndiceIMatrizAux(Gerenciador.inky.getNroVerticeAtual());
@@ -190,19 +223,30 @@ public class Main extends Application {
 
                     tl2.getKeyFrames().add(new KeyFrame(Duration.millis(300), keyValueX, keyValueY));
 
-                    Gerenciador.pm.gerenciaColisao(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
-
-
                 }
 
+            } else {
+
+                Gerenciador.inky.setNroVerticeAtual(128);
+                i = tc.procuraIndiceIMatrizAux(128);
+                j = tc.procuraIndiceJMatrizAux(128);
+
+                x = 20*j - tc.InkyID.getLayoutX();
+                y = 20*i - tc.InkyID.getLayoutY();
+
+                KeyValue keyValueX = new KeyValue(tc.InkyID.translateXProperty(), x);
+                KeyValue keyValueY = new KeyValue(tc.InkyID.translateYProperty(), y);
+
+                tl2.getKeyFrames().add(new KeyFrame(Duration.millis(300), keyValueX, keyValueY));
+
+                Gerenciador.inky.resetMorto();
 
             }
 
+            Gerenciador.pm.gerenciaColisao(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
+
 
             if (!Gerenciador.clyde.isMorto()) {
-
-                int i, j;
-                double x, y;
 
                 // Posicao Inicial do fantasma na matrix de vertices
                 i = tc.procuraIndiceIMatrizAux(Gerenciador.clyde.getNroVerticeAtual());
