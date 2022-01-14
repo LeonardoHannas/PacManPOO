@@ -52,6 +52,7 @@ public class Main extends Application {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Tabuleiro.fxml"));
 
+
         AnchorPane pane;
 
 
@@ -103,8 +104,9 @@ public class Main extends Application {
             tc.setNivelID(tc.nivelID);
             tc.setVidasID(tc.vidasID);
 
-
             tl.play();
+
+            if (Gerenciador.pm.getNumVidas() == 0) javafx.application.Platform.exit();
 
         });
 
@@ -272,17 +274,37 @@ public class Main extends Application {
 
                     tl2.getKeyFrames().add(new KeyFrame(Duration.millis(300), keyValueX, keyValueY));
 
-                    Gerenciador.pm.gerenciaColisao(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
-                }
 
                 }
+
+                } else {
+
+                Gerenciador.clyde.setNroVerticeAtual(135);
+                i = tc.procuraIndiceIMatrizAux(135);
+                j = tc.procuraIndiceJMatrizAux(135);
+
+                x = 20*j - tc.ClydeID.getLayoutX();
+                y = 20*i - tc.ClydeID.getLayoutY();
+
+                KeyValue keyValueX = new KeyValue(tc.ClydeID.translateXProperty(), x);
+                KeyValue keyValueY = new KeyValue(tc.ClydeID.translateYProperty(), y);
+
+                tl2.getKeyFrames().add(new KeyFrame(Duration.millis(300), keyValueX, keyValueY));
+
+                Gerenciador.clyde.resetMorto();
+            }
+
+            Gerenciador.pm.gerenciaColisao(Gerenciador.t, Gerenciador.pm, Gerenciador.blinky, Gerenciador.pinky, Gerenciador.inky, Gerenciador.clyde);
 
             tl2.play();
+
 
         });
 
     }
-    }
+
+
+}
 
 
 

@@ -227,26 +227,18 @@ public void atualizaNumVerticeInky(int indiceIMatrizAux, int indiceJMatrizAux, M
 
             switch (direcaoAtual) {
                 case NORTE:
-                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux - 1][indiceJMatrizAux] == null)
-                        System.out.println("NULO 1");
                     clyde.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux - 1][indiceJMatrizAux].getNumero());
                     break;
 
                 case SUL:
-                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux + 1][indiceJMatrizAux] == null)
-                        System.out.println("NULO 2");
                     clyde.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux + 1][indiceJMatrizAux].getNumero());
                     break;
 
                 case LESTE:
-                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux + 1] == null)
-                        System.out.println("NULO 3");
                     clyde.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux + 1].getNumero());
                     break;
 
                 case OESTE:
-                    if (Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux - 1] == null)
-                        System.out.println("NULO 4");
                     clyde.setNroVerticeAtual(Gerenciador.t.getMatrizAux()[indiceIMatrizAux][indiceJMatrizAux - 1].getNumero());
                     break;
 

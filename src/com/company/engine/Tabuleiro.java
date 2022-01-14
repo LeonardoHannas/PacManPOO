@@ -72,6 +72,33 @@ public class Tabuleiro {
 
     }
 
+    public void restartTabuleiro() {
+
+        for (int i = 0; i < nroTotalVertices; i++) {
+            arestas[i][0] = new Vertice(i, '.');
+            for (int j = 1; j < grauMax; j++) {
+                arestas[i][j] = new Vertice(-1, '.');
+            }
+        }
+
+        for (int i = 0; i < arestas.length; i++) {
+
+            switch (i) {
+                case 47:
+                case 62:
+                case 169:
+                case 182:
+                    arestas[i][0].setChar('*');
+                    break;
+                default:
+                    arestas[i][0].setChar('.');
+                    break;
+            }
+        }
+
+    }
+
+
     public VerticeAux[][] getMatrizAux() {
         return matrizAux;
     }
@@ -120,7 +147,7 @@ public class Tabuleiro {
             int numVerticeAux = 0;
             while (line != null) {
 
-                for (j = 0; j < 28 /*line.length()*/; j++) {
+                for (j = 0; j < 28; j++) {
 
                     switch (line.charAt(j)) {
 
@@ -171,6 +198,17 @@ public class Tabuleiro {
      */
     public void setNivel(int nivel) {
         this.nivel = nivel;
+    }
+
+    public void nivelUp(Tabuleiro t, PacMan pm) {
+        if (pm.getNumPacDotsComidos() == 240 && getArestas()[47][0].isComido() && getArestas()[62][0].isComido() &&
+                getArestas()[169][0].isComido() && getArestas()[182][0].isComido()) setNivel(getNivel() + 1);
+        restartTabuleiro();
+        pm.restartPacMan(t);
+
+
+        // RESTART MO TABULEIRO, PAC MAN, FANTASMAS, FRUTA BONUS
+
     }
 
     /**

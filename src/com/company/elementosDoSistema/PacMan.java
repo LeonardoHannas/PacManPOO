@@ -60,6 +60,24 @@ public class PacMan {
 
     }
 
+    public void restartPacMan(Tabuleiro t) {
+
+        setVerticeAtual(t, 0);
+        getVerticesPercorridos().clear();
+        verticesPercorridos.add(getPosicaoAtual());
+        resetNumFantasmasComidos();
+        resetNumPacDotsComidos();
+
+    }
+
+    public void resetNumFantasmasComidos() {
+        numFatasmasComidos = 0;
+    }
+
+    public void resetNumPacDotsComidos() {
+        numPacDotsComidos = 0;
+    }
+
     public void setGanhouVidaExtra() { ganhouVidaExtra = true; }
 
     public boolean getGanhouVidaExtra() { return ganhouVidaExtra; }
@@ -191,7 +209,25 @@ public class PacMan {
             t.setCorFantasmas(f1, f2, f3, f4);
 
             tempoInicial = System.currentTimeMillis();
-            tempoFinal = tempoInicial + 5000;
+
+            switch (t.getNivel()) {
+
+                case 1:
+                    tempoFinal = tempoInicial + 5000;
+                    break;
+                case 2:
+                    tempoFinal = tempoInicial + 3000;
+                    break;
+                case 3:
+                    tempoFinal = tempoInicial + 2000;
+                    break;
+                case 4:
+                    tempoFinal = tempoInicial + 1000;
+                    break;
+                default:
+                    tempoFinal = tempoInicial + 500;
+                    break;
+            }
 
         } else if (System.currentTimeMillis() > tempoFinal) {
             pilulaDePoder = false;
